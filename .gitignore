@@ -1,0 +1,78 @@
+# Build folders and files
+/out/
+/Build/
+out/
+Build/
+build/
+bin/
+lib/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Build Files
+Debug/
+Release/
+x64/
+x86/
+*.obj
+*.pch
+*.pdb
+*.idb
+*.ilk
+*.ipdb
+*.iobj
+*.tlog
+*.lastbuildstate
+*.log
+
+# ===========================
+# Executables & Libraries
+# ===========================
+*.exe
+*.dll
+*.lib
+*.exp
+
+# ===========================
+# Temporary Files
+# ===========================
+*.tmp
+*.temp
+*.bak
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Editor
+# ===========================
+.vscode/
+
+# ===========================
+# Third Party
+# ===========================
+ThirdParty/**/build/
+ThirdParty/**/Build/
+
+# ===========================
+# Assets Cache (Future)
+# ===========================
+Assets/Cache/
