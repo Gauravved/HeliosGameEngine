@@ -4,7 +4,7 @@
 
 namespace Helios {
 	Application::Application() {
-		m_Window.reset(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 	void Application::Run() {
 		while (m_Running) {
