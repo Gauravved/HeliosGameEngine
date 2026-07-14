@@ -16,6 +16,13 @@ namespace Helios {
 		void SwapBuffer() override;
 
 	private:
+		void InitializeDeviceContext();
+		void CreateLegacyContext();
+		void InitializeWGL();
+		void CreateModernContext();
+		void InitializeOpenGL();
+
+	private:
 
 		/*
 		HWND (The Canvas): The actual window on your screen.

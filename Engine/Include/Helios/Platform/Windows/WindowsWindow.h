@@ -1,7 +1,11 @@
 #pragma once
 
-#include <Helios/Window/Window.h>
 #include<Windows.h>
+#include<memory>
+
+#include <Helios/Window/Window.h>
+#include<Helios/Renderer/GraphicsContext.h>
+
 namespace Helios {
 	class WindowsWindow : public Window {
 	public:
@@ -49,5 +53,6 @@ namespace Helios {
 		//Window Properties data
 		WindowProperties m_Data;
 
+		std::unique_ptr<GraphicsContext> m_Context = nullptr;
 	};
 }

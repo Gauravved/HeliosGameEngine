@@ -1,4 +1,5 @@
 #include <Helios/Platform/Windows/WindowsWindow.h>
+#include<Helios/Renderer/OpenGLContext.h>
 #include <iostream>
 
 namespace Helios {
@@ -81,9 +82,16 @@ namespace Helios {
 			return;
 		}
 
+
+
+		//Creating OpenGL context
+		m_Context = std::make_unique<OpenGLContext>(m_Handle);
+		m_Context->Init();
+
 		//show window
 		ShowWindow(m_Handle, SW_SHOW);
 		UpdateWindow(m_Handle);
+
 
 	}
 
