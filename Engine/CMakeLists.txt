@@ -5,9 +5,14 @@ target_sources(Helios
         Source/Core/Application.cpp
         Source/Platform/Windows/WindowsWindow.cpp
         Source/Renderer/OpenGLContext.cpp
+        Source/Renderer/OpenGLRendererAPI.cpp 
+        Source/Renderer/RendererAPI.cpp
+        Source/Renderer/RenderCommand.cpp
+        Source/Renderer/Renderer.cpp
+
         ../ThirdParty/glad/src/gl.c 
-        ../ThirdParty/glad/src/wgl.c
-)
+        ../ThirdParty/glad/src/wgl.c 
+ "Include/Helios/Core/Base.h")
 
 target_include_directories(Helios
     PUBLIC

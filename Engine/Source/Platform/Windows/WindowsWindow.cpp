@@ -1,6 +1,8 @@
+//#include <iostream>
+
+
 #include <Helios/Platform/Windows/WindowsWindow.h>
 #include<Helios/Renderer/OpenGLContext.h>
-#include <iostream>
 
 namespace Helios {
 	Window* Window::Create(const WindowProperties& properties) {
@@ -18,8 +20,25 @@ namespace Helios {
 	//WindowProc definition
 	LRESULT CALLBACK WindowsWindow::WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
 		switch(message){
+		case WM_ERASEBKGND:
+			// Return 1 (non-zero) to tell Windows we handled the background erasure.
+			// This stops the OS from painting a black rectangle over our OpenGL frame.
+			return 1;
+
+		case WM_PAINT:
+			// Validate the window so Windows stops spamming the message queue with paint requests
+			PAINTSTRUCT ps;
+			BeginPaint(hwnd, &ps);
+			// We do nothing here because OpenGL handles the actual drawing
+			EndPaint(hwnd, &ps);
+			return 0;
+
 		case WM_DESTROY:
 			PostQuitMessage(0);
+			return 0;
+
+		case WM_CLOSE:
+			DestroyWindow(hwnd);
 			return 0;
 
 		}
@@ -38,7 +57,7 @@ namespace Helios {
 		WNDCLASSEXW windowClass{};
 		windowClass.cbSize = sizeof(WNDCLASSEXW);
 
-		windowClass.style = CS_HREDRAW | CS_VREDRAW;
+		windowClass.style = CS_OWNDC;
 
 		//Long Pointer to Function Window Procedure. Every windows event from mouse click, keyboard interruption to paint and close will eventually come here.
 		windowClass.lpfnWndProc = WindowProc;
@@ -61,7 +80,7 @@ namespace Helios {
 			0, //DWORD 0 for no extendent window style
 			windowClass.lpszClassName, //Class Name
 			L"Helios Engine", //Window Title
-			WS_OVERLAPPEDWINDOW, //Standard desktop window. This automatically gives minimize maximize resize close button
+			WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, //Standard desktop window. This automatically gives minimize maximize resize close button
 			CW_USEDEFAULT, //Defines Starting position
 			CW_USEDEFAULT, //Defaines Starting position
 			m_Data.m_Width,
@@ -71,6 +90,15 @@ namespace Helios {
 			m_Instance, //Current Instance created
 			nullptr //No additional Data
 		);
+		/*RECT rect{};
+		GetClientRect(m_Handle, &rect);
+
+		std::cout
+			<< "Client Size = "
+			<< rect.right - rect.left
+			<< " x "
+			<< rect.bottom - rect.top
+			<< '\n';
 
 		if (!m_Handle) {
 			MessageBoxW(
@@ -80,19 +108,15 @@ namespace Helios {
 				MB_OK | MB_ICONERROR
 			);
 			return;
-		}
-
-
-
-		//Creating OpenGL context
-		m_Context = std::make_unique<OpenGLContext>(m_Handle);
-		m_Context->Init();
+		}*/
 
 		//show window
 		ShowWindow(m_Handle, SW_SHOW);
 		UpdateWindow(m_Handle);
 
-
+		//Creating OpenGL context
+		m_GraphicsContext = std::make_unique<OpenGLContext>(m_Handle);
+		m_GraphicsContext->Init();
 	}
 
 	void WindowsWindow::Shutdown() {
@@ -105,6 +129,8 @@ namespace Helios {
 			TranslateMessage(&message);
 			DispatchMessageW(&message);
 		}
+
+		m_GraphicsContext->SwapBuffer();
 	}
 
 	uint32_t WindowsWindow::GetWidth() const {

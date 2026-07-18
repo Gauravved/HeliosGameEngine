@@ -30,7 +30,7 @@ namespace Helios {
 			throw std::runtime_error("Failed to get device context");
 		}
 
-		PIXELFORMATDESCRIPTOR pixelFormat;
+		PIXELFORMATDESCRIPTOR pixelFormat{};
 
 		pixelFormat.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 		pixelFormat.nVersion = 1;
@@ -51,9 +51,15 @@ namespace Helios {
 		//Asking windows which pizel format is best for these specs
 		int pixelFormatIndex = ChoosePixelFormat(m_DeviceContext, &pixelFormat);
 
+		if (pixelFormatIndex == 0) {
+			throw std::runtime_error("ChoosePixelFormat Failed");
+		}
+
 		if (!SetPixelFormat(m_DeviceContext, pixelFormatIndex, &pixelFormat)) {
 			throw std::runtime_error("Failed to set pixel format");
 		}
+		std::cout << "HWND: " << m_Window << '\n';
+		std::cout << "HDC : " << m_DeviceContext << '\n';
 
 	}
 
@@ -145,6 +151,10 @@ namespace Helios {
 		std::cout << "OpenGL   : " << versionString << '\n';
 		std::cout << "GLSL     : " << glslVersion << '\n';
 		std::cout << "----------------------------------\n";
+
+		if (wglSwapIntervalEXT) {
+			wglSwapIntervalEXT(1);
+		}
 	}
 
 	void OpenGLContext::Init() {
@@ -169,8 +179,20 @@ namespace Helios {
 
 	//Swap Buffer
 	void OpenGLContext::SwapBuffer() {
+		/*GLint drawBuffer = 0;
+		glGetIntegerv(GL_DRAW_BUFFER, &drawBuffer);
+		std::cout << "Current HWND = " << GetForegroundWindow() << '\n';
+		std::cout << "My HWND      = " << m_Window << '\n';*/
+
+		//std::cout << "Draw Buffer: " << drawBuffer << '\n';
 		// Windows already has a function name
-		::SwapBuffers(m_DeviceContext);
+		BOOL result = ::SwapBuffers(m_DeviceContext);
+		/*std::cout << "Swap Result: " << result << std::endl;*/
+
+		if (!result)
+		{
+			std::cout << "GLContextFailed SwapBuffer: " << GetLastError() << '\n';
+		}
 	}
 
 }

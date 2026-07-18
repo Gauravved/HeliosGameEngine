@@ -5,6 +5,7 @@
 
 #include <Helios/Window/Window.h>
 #include<Helios/Renderer/GraphicsContext.h>
+#include<Helios/Core/Base.h>
 
 namespace Helios {
 	class WindowsWindow : public Window {
@@ -17,8 +18,8 @@ namespace Helios {
 		//Override the parent class functions for windows compatibility
 		virtual void OnUpdate() override;
 
-		virtual uint32_t GetWidth() const override;
-		virtual uint32_t GetHeight() const override;
+		virtual uint32 GetWidth() const override;
+		virtual uint32 GetHeight() const override;
 
 	private:
 		//Windows Fucntions for initializing window
@@ -53,6 +54,6 @@ namespace Helios {
 		//Window Properties data
 		WindowProperties m_Data;
 
-		std::unique_ptr<GraphicsContext> m_Context = nullptr;
+		std::unique_ptr<GraphicsContext> m_GraphicsContext = nullptr;
 	};
 }

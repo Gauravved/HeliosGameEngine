@@ -1,13 +1,14 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
+
+#include<Helios/Core/Base.h>
 
 namespace Helios {
 	struct WindowProperties {
 		std::string m_Title = "Helios Game Engine";
-		uint32_t m_Width = 1280;
-		uint32_t m_Height = 720;
+		uint32 m_Width = 1280;
+		uint32 m_Height = 720;
 	};
 
 	class Window {
