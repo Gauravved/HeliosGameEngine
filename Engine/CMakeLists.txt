@@ -9,10 +9,16 @@ target_sources(Helios
         Source/Renderer/RendererAPI.cpp
         Source/Renderer/RenderCommand.cpp
         Source/Renderer/Renderer.cpp
+        Source/Renderer/Buffer/VertexBuffer.cpp
+        Source/Renderer/Buffer/IndexBuffer.cpp 
+        Source/Renderer/Buffer/VertexArray.cpp
+        Source/Renderer/OpenGL/OpenGLVertexBuffer.cpp
+        Source/Renderer/OpenGL/OpenGLIndexBuffer.cpp
+        Source/Renderer/OpenGL/OpenGLVertexArray.cpp
 
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c 
- "Include/Helios/Core/Base.h")
+)
 
 target_include_directories(Helios
     PUBLIC
