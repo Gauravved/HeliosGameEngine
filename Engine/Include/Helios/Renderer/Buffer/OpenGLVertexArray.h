@@ -21,5 +21,6 @@ namespace Helios {
 		uint32 m_RendererID;
 
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+
 	};
 }

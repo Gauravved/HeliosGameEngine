@@ -3,6 +3,6 @@
 
 namespace Helios {
 	std::shared_ptr<VertexArray> VertexArray::Create() {
-		return std::make_shared<OpenGLVexterArray>();
+		return std::make_shared<OpenGLVertexArray>();
 	}
 }

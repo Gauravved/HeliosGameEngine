@@ -11,7 +11,11 @@ namespace Helios {
 		void Bind() const override;
 		void Unbind() const override;
 
+		void SetLayout(const BufferLayout& layout) override;
+		const BufferLayout& GetLayout() const override;
+
 	private:
 		uint32 m_RendererID;
+		BufferLayout m_Layout;
 	};
 }
