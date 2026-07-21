@@ -5,8 +5,8 @@
 #include<glad/gl.h>
 #include<glad/wgl.h>
 
-#include<Helios//Renderer/OpenGLContext.h>
-#include<Helios/Renderer/OpenGLConfig.h>
+#include<Helios//Renderer/OpenGL/OpenGLContext.h>
+#include<Helios/Renderer/OpenGL/OpenGLConfig.h>
 
 
 namespace Helios {

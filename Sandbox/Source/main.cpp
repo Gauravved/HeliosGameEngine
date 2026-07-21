@@ -1,4 +1,6 @@
 #include <Helios/Core/Application.h>
+#include<Helios/Core/Log.h>
+
 #ifdef _WIN32
 #include<Windows.h>
 extern "C"
@@ -9,6 +11,8 @@ extern "C"
 #endif
 
 int main() {
+	Helios::Log::Init();
+
 	Helios::Application application;
 	application.Run();
 	return 0;

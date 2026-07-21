@@ -1,6 +1,6 @@
 #include<glad/gl.h>
 
-#include<Helios/Renderer/Buffer/OpenGLVertexBuffer.h>
+#include<Helios/Renderer/Buffer/OpenGL/OpenGLVertexBuffer.h>
 
 namespace Helios {
 	//This is Direct State Access implementation of OpenGL 4.6 

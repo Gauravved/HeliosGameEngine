@@ -2,7 +2,7 @@
 
 
 #include <Helios/Platform/Windows/WindowsWindow.h>
-#include<Helios/Renderer/OpenGLContext.h>
+#include<Helios/Renderer/OpenGL/OpenGLContext.h>
 
 namespace Helios {
 	Window* Window::Create(const WindowProperties& properties) {

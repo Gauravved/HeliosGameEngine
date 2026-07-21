@@ -8,3 +8,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_subdirectory(Engine)
 add_subdirectory(Sandbox)
+
+target_compile_options(Helios PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/utf-8>
+)
+target_compile_options(Sandbox PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/utf-8>
+)

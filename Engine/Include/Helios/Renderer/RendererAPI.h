@@ -5,6 +5,12 @@
 namespace Helios {
 	class RendererAPI {
 	public:
+
+		enum class API {
+			None = 0,
+			OpenGL
+		};
+
 		virtual ~RendererAPI() = default;
 
 		virtual void Init() = 0;
@@ -12,5 +18,11 @@ namespace Helios {
 		virtual void SetViewport(uint32 x, uint32 y, uint32 width, uint32 height) = 0;
 		virtual void SetClearColor(float r, float g, float b, float a) = 0;
 		virtual void Clear() = 0;
+
+		static API GetAPI() {
+			return s_API;
+		}
+	private:
+		static API s_API;
 	};
 }

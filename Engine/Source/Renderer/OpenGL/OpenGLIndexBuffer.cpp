@@ -1,6 +1,6 @@
 #include<glad/gl.h>
 
-#include<Helios/Renderer/Buffer/OpenGLIndexBuffer.h>
+#include<Helios/Renderer/Buffer/OpenGL/OpenGLIndexBuffer.h>
 
 namespace Helios {
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32* indices, uint32 count):m_Count(count) {

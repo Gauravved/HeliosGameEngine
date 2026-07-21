@@ -1,7 +1,7 @@
 #include<glad/gl.h>
 #include<glad/wgl.h>
 
-#include<Helios/Renderer/OpenGLRendererAPI.h>
+#include<Helios/Renderer/OpenGL/OpenGLRendererAPI.h>
 
 namespace Helios{
 	void OpenGLRendererAPI::Init() {

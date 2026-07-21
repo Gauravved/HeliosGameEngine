@@ -1,6 +1,6 @@
 #include<glad/gl.h>
 
-#include<Helios/Renderer/Buffer/OpenGLVertexArray.h>
+#include<Helios/Renderer/Buffer/OpenGL/OpenGLVertexArray.h>
 
 namespace Helios {
 
