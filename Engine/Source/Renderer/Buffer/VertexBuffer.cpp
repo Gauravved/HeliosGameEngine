@@ -3,7 +3,7 @@
 #include<Helios/Renderer/Buffer/OpenGL/OpenGLVertexBuffer.h>
 
 namespace Helios {
-	std::shared_ptr<VertextBuffer> VertextBuffer::Create(float* vertices, uint32 size) {
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32 size) {
 		switch (RendererAPI::GetAPI()) {
 		case RendererAPI::API::None:
 			return nullptr;

@@ -2,7 +2,7 @@
 #include<Helios/Renderer/OpenGL/OpenGLRendererAPI.h>
 
 namespace Helios {
-	std::unique_ptr<RendererAPI> RenderCommand::s_RendererAPI = std::make_unique<OpenGLRendererAPI>();
+	std::unique_ptr<RendererAPI> RenderCommand::s_RendererAPI = RendererAPI::Create();
 
 	void RenderCommand::Init() {
 		s_RendererAPI->Init();
@@ -18,5 +18,9 @@ namespace Helios {
 
 	void RenderCommand::Clear() {
 		s_RendererAPI->Clear();
+	}
+
+	void RenderCommand::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
+		s_RendererAPI->DrawIndexed(vertexArray);
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include<memory>
-#include<string>
+#include<filesystem>
 
 namespace Helios {
 	class Shader {
@@ -12,8 +12,8 @@ namespace Helios {
 		virtual void Unbind() const = 0;
 
 		static std::shared_ptr<Shader> Create(
-			const std::string& vertexSource,
-			const std::string& fragmentSource
+			const std::filesystem::path& vertexPath,
+			const std::filesystem::path& fragmentPath
 		);
 	};
 }

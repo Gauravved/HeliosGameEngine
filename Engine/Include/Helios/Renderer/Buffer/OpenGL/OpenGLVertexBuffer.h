@@ -3,7 +3,7 @@
 #include<Helios/Renderer/Buffer/VertexBuffer.h>
 
 namespace Helios {
-	class OpenGLVertexBuffer :public VertextBuffer {
+	class OpenGLVertexBuffer :public VertexBuffer {
 	public:
 		OpenGLVertexBuffer(float* vertices, uint32 size);
 		~OpenGLVertexBuffer();

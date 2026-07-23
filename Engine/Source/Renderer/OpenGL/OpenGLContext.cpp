@@ -1,10 +1,11 @@
 
 #include<stdexcept>
-#include<iostream>
+//#include<iostream>
 
 #include<glad/gl.h>
 #include<glad/wgl.h>
 
+#include<Helios/Core/Log.h>
 #include<Helios//Renderer/OpenGL/OpenGLContext.h>
 #include<Helios/Renderer/OpenGL/OpenGLConfig.h>
 
@@ -27,6 +28,7 @@ namespace Helios {
 		m_DeviceContext = GetDC(m_Window);
 
 		if (!m_DeviceContext) {
+			HL_CORE_ERROR("Failed to get device context");
 			throw std::runtime_error("Failed to get device context");
 		}
 
@@ -52,14 +54,16 @@ namespace Helios {
 		int pixelFormatIndex = ChoosePixelFormat(m_DeviceContext, &pixelFormat);
 
 		if (pixelFormatIndex == 0) {
+			HL_CORE_ERROR("ChoosePixelFormat Failed");
 			throw std::runtime_error("ChoosePixelFormat Failed");
 		}
 
 		if (!SetPixelFormat(m_DeviceContext, pixelFormatIndex, &pixelFormat)) {
+			HL_CORE_ERROR("Failed to set pixel format");
 			throw std::runtime_error("Failed to set pixel format");
 		}
-		std::cout << "HWND: " << m_Window << '\n';
-		std::cout << "HDC : " << m_DeviceContext << '\n';
+		HL_CORE_INFO("HWND created: {}",static_cast<void*>(m_Window));
+		HL_CORE_INFO("HDC creatd: {}", static_cast<void*>(m_DeviceContext));
 
 	}
 
@@ -68,10 +72,12 @@ namespace Helios {
 		m_RenderingContext = wglCreateContext(m_DeviceContext);
 
 		if (!m_RenderingContext) {
+			HL_CORE_ERROR("Failed to create OpenGL context");
 			throw std::runtime_error("Failed to create OpenGL Context");
 		}
 
 		if (!wglMakeCurrent(m_DeviceContext, m_RenderingContext)) {
+			HL_CORE_ERROR("Failed to activate current OpenGL");
 			throw std::runtime_error("Failed to activate Current OpenGL");
 		}
 	}
@@ -80,6 +86,7 @@ namespace Helios {
 		int version = gladLoaderLoadWGL(m_DeviceContext);
 
 		if (0 == version) {
+			HL_CORE_ERROR("Failed to initialieze WGL");
 			throw std::runtime_error("Failed to initialize WGL");
 		}
 	}
@@ -105,6 +112,7 @@ namespace Helios {
 
 		////Check status
 		if (!modernContext) {
+			HL_CORE_ERROR("Failed to create OpenGL 4.6 Core Profile");
 			throw std::runtime_error("Failed to create OpenGL 4.6 Core Profile");
 		}
 
@@ -119,6 +127,7 @@ namespace Helios {
 
 		//Acttivate Modern Context
 		if (!wglMakeCurrent(m_DeviceContext, m_RenderingContext)) {
+			HL_CORE_ERROR("Failed to activate OpenGL 4.6 context");
 			throw std::runtime_error("Failed to activate OpenGL 4.6 context");
 		}
 
@@ -130,7 +139,8 @@ namespace Helios {
 		int version = gladLoaderLoadGL();
 
 		if (0 == version) {
-			throw std::runtime_error("Failed to initialize OepenGL");
+			HL_ERROR("Failed to initialize OpenGL");
+			throw std::runtime_error("Failed to initialize OpenGL");
 		}
 
 		//Just check that everything is working fine
@@ -144,13 +154,13 @@ namespace Helios {
 			throw std::runtime_error("Failed to query OpenGL information.");
 		}
 
-		std::cout << "----------------------------------\n";
-		std::cout << "Helios Renderer Initialized\n";
-		std::cout << "Vendor   : " << vendor << '\n';
-		std::cout << "Renderer : " << renderer << '\n';
-		std::cout << "OpenGL   : " << versionString << '\n';
-		std::cout << "GLSL     : " << glslVersion << '\n';
-		std::cout << "----------------------------------\n";
+		HL_CORE_INFO("----------------------------------");
+		HL_CORE_INFO("Helios Renderer Initialized");
+		HL_CORE_INFO("Vendor   : {}", vendor);
+		HL_CORE_INFO("Renderer : {}", renderer);
+		HL_CORE_INFO("OpenGL   : {}", versionString);
+		HL_CORE_INFO("GLSL     : {}", glslVersion);
+		HL_CORE_INFO("----------------------------------");
 
 		if (wglSwapIntervalEXT) {
 			wglSwapIntervalEXT(1);
@@ -191,7 +201,7 @@ namespace Helios {
 
 		if (!result)
 		{
-			std::cout << "GLContextFailed SwapBuffer: " << GetLastError() << '\n';
+			HL_CORE_ERROR("GLContextFailed SwapBuffer: {}", GetLastError());
 		}
 	}
 

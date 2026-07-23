@@ -58,7 +58,7 @@ namespace Helios {
 		return m_IndexBuffer;
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertextBuffer>& vertexBuffer) {
+	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) {
 		Bind();
 		vertexBuffer->Bind();
 		//Get Layout from vertex buffer to interpret it

@@ -8,17 +8,10 @@ namespace Helios {
 
 	Application::Application() {
 
-		HL_CORE_INFO("Helios Logger Initialized");
-		HL_CORE_WARN("This is a warning");
-		HL_CORE_ERROR("This is an error");
-
-		HL_INFO("Sandbox Logger Initialized");
-
 		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 	void Application::Run() {
-		std::cout << m_Window->GetWidth() << " "
-			<< m_Window->GetHeight() << std::endl;
+		HL_CORE_INFO("Window created in {} x {} resolution",m_Window->GetWidth(), m_Window->GetHeight());
 		Renderer::Init(
 			m_Window->GetWidth(),
 			m_Window->GetHeight()
