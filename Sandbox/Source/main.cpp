@@ -1,5 +1,4 @@
-#include <Helios/Core/Application.h>
-#include<Helios/Core/Log.h>
+#include<Sandbox.h>
 
 #ifdef _WIN32
 #include<Windows.h>
@@ -13,7 +12,7 @@ extern "C"
 int main() {
 	Helios::Log::Init();
 
-	Helios::Application application;
+	Sandbox application;
 	application.Run();
 	return 0;
 }

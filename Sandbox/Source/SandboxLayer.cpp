@@ -1,13 +1,9 @@
 #include<SandboxLayer.h>
-#include<Helios/Renderer/Shader.h>
-#include<Helios/Renderer/Buffer/VertexArray.h>
-#include<Helios/Renderer/Buffer/VertexBuffer.h>
-#include<Helios/Renderer/Buffer/IndexBuffer.h>
-#include<Helios/Renderer/Buffer/BufferLayout.h>
-#include<Helios/Core/Base.h>
-#include<Helios/Renderer/RenderCommand.h>
 
-SandboxLayer::SandboxLayer() {
+
+SandboxLayer::SandboxLayer()
+    : Helios::Layer("Sandbox")
+{
 
     /*This is not three points on your monitor.
      These are three points in Normalized Device Coordinates(NDC).
@@ -30,9 +26,10 @@ SandboxLayer::SandboxLayer() {
      Third vertex 0.0f, 0.5f, 0.0f means Top Middle*/
 
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f
+            // Position             // Colors
+		-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, // Red
+		0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f, // Green
+		0.0f, 0.5f, 0.0f,       0.0f, 0.0f, 1.0f  // Blue
 	};
 
     // Instead of duplicating vertex data, we reference existing vertices.
@@ -50,7 +47,8 @@ SandboxLayer::SandboxLayer() {
     m_VertexArray = Helios::VertexArray::Create();
 
     Helios::BufferLayout layout = {
-        {Helios::ShaderDataType::Float3, "a_Position"}
+        {Helios::ShaderDataType::Float3, "a_Position"},
+        {Helios::ShaderDataType::Float3, "a_Color"}
     };
     
     m_VertexBuffer->SetLayout(layout);

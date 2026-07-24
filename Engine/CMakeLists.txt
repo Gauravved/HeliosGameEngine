@@ -4,6 +4,8 @@ target_sources(Helios
     PRIVATE
         Source/Core/Application.cpp
         Source/Core/Log.cpp
+        Source/Core/Layer.cpp 
+        Source/Core/LayerStack.cpp
 
         Source/Platform/Windows/WindowsWindow.cpp
 
@@ -25,6 +27,7 @@ target_sources(Helios
 
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c
+        
 )
 
 target_include_directories(Helios

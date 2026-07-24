@@ -1,21 +1,14 @@
 #pragma once
 
-#include<memory>
+#include<Helios.h>
 
-namespace Helios {
-	class VertexArray;
-	class VertexBuffer;
-	class IndexBuffer;
-	class Shader;
-}
-
-class SandboxLayer {
+class SandboxLayer: public Helios::Layer {
 public:
 	SandboxLayer();
 	~SandboxLayer();
 	
 
-	void OnUpdate();
+	void OnUpdate() override;
 
 private:
 	std::shared_ptr<Helios::VertexArray> m_VertexArray;

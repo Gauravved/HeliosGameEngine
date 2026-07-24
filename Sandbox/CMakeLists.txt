@@ -1,7 +1,7 @@
 add_executable(Sandbox
     Source/main.cpp
     Source/SandboxLayer.cpp 
-)
+ "Include/Sandbox.h")
 
 target_include_directories(Sandbox
     PUBLIC 

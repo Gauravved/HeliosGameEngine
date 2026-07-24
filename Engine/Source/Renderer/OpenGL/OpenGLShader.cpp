@@ -47,6 +47,9 @@ namespace Helios {
 		// To check if the Shader compiled correctly or not
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
 
+		const char* shaderType =
+			(type == GL_VERTEX_SHADER) ? "Vertex" : "Fragment";
+
 		if (isCompiled == GL_FALSE) {
 			// Something went wrong
 			int maxLength = 0;
@@ -66,10 +69,12 @@ namespace Helios {
 			// Delete the failed shader
 			glDeleteShader(shader);
 
-			HL_CORE_ERROR("Failed to compile Shaders. \n{}", infoLog.data());
+			HL_CORE_ERROR("[{} Shader] \nFailed to Compile \n{}", shaderType, infoLog.data());
 	
 			return 0;
 		}
+
+		HL_CORE_INFO("[{} Shader] \nCompilation Successful", shaderType);
 
 		return shader;
 	}
