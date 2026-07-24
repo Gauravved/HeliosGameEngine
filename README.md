@@ -232,6 +232,6 @@ cmake --build .
 # Screenshots
 
 > Screenshots and progress updates will be added as development continues.
-<img src="E:\CustomGameEngine\Helios\Docs\Image\RGB triangle.png" alt="Rendering of RGB triangle" width="300">
+![Rendering RGB Triangle](Docs/Images/RGB_Triangle.png)
 ---
 
