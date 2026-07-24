@@ -233,7 +233,7 @@ cmake --build .
 
 > Screenshots and progress updates will be added as development continues.
 <p align="center">
-    <img src="Docs/Images/RGB_Triangle.png" width="700" alt="Helios RGB Triangle">
+    <img src="Docs/Images/RGB_triangle.png" width="700" alt="Helios RGB Triangle">
 </p>
 ---
 
