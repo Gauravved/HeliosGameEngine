@@ -9,6 +9,13 @@ namespace Helios {
 	Application::Application() {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
+
+		// Setting Event Callback
+		m_Window->SetEvenCallback(
+			[this](Event& e) {
+				OnEvent(e);
+			}
+		);
 	}
 
 	void Application::PushLayer(const std::shared_ptr<Layer>& layer) {
@@ -35,5 +42,24 @@ namespace Helios {
 			//Renderer::EndFrame();
 		}
 	}
+
+	// Orchestrating the Event occurance
+	void Application::OnEvent(Event& event) {
+		EventDispatcher dispatcher(event);
+
+		// Calling dispatcher for WindowCloseEvent. The parameter passed is Lambda callback function for OnWindowClose
+		dispatcher.Dispatch<WindowCloseEvent>(
+			[this](WindowCloseEvent& e) {
+				return OnWindowClose(e);
+			}
+		);
+	}
+
+	// What to do on window close event
+	bool Application::OnWindowClose(WindowCloseEvent& event) {
+		m_Running = false;
+		return true;
+	}
+
 	Application::~Application() = default;
 }

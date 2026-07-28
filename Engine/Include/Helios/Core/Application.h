@@ -4,6 +4,7 @@
 #include<Helios/Window/Window.h>
 #include<Helios/Core/LayerStack.h>
 #include<Helios/Events/Event.h>
+#include<Helios/Events/ApplicationEvent.h>
 
 // defining application namespace 
 namespace Helios{
@@ -23,5 +24,7 @@ namespace Helios{
 
 		void OnEvent(Event& event);
 
+	private:
+		bool OnWindowClose(WindowCloseEvent& event);
 	};
 }

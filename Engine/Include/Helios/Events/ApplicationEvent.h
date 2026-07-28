@@ -23,7 +23,7 @@ namespace Helios {
 
 		std::string ToString() const {
 			std::stringstream ss;
-			ss << GetName()<<<<": " << m_Width << " x " << m_Height;
+			ss << GetName() << ": " << m_Width << " x " << m_Height;
 			return ss.str();
 		}
 
@@ -38,6 +38,7 @@ namespace Helios {
 
 	// Window Close Event
 	class WindowCloseEvent :public Event {
+	public:
 		HL_EVENT_CLASS_TYPE(WindowClose)
 		HL_EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};

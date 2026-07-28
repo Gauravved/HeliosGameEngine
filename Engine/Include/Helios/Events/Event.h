@@ -71,10 +71,6 @@ namespace Helios {
 	public:
 		bool Handled = false;
 
-	protected:
-
-	private:
-
 	};
 
 	// Event Dispatcher for Event Management
