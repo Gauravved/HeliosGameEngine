@@ -1,4 +1,5 @@
 #pragma once
+#include<string>
 
 // Macro to get EventCategory
 #define EVENT_CLASS_TYPE(type)								\
@@ -42,7 +43,7 @@ namespace Helios {
 
 		EventCategoryApplication		= 1 << 0,
 		EventCategoryInput				= 1 << 1,
-		EventCVategoryKeyboard			= 1 << 2,
+		EventCategoryKeyboard			= 1 << 2,
 		EventCategoryMouse				= 1 << 3,
 		EventCategoryMMouseButton		= 1 << 4
 	};
@@ -56,9 +57,14 @@ namespace Helios {
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags()const = 0;
 
+		virtual std::string ToString() const {
+			GetName();
+		}
+
 		bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
+
 
 	public:
 		bool Handled = false;

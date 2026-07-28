@@ -1,0 +1,44 @@
+#pragma once
+
+#include<sstream>
+
+#include<Helios/Core/Base.h>
+#include<Helios/Events/Event.h>
+
+namespace Helios {
+
+	// Window Resize Event
+	class WindowResizeEvent :public Event {
+	public:
+		WindowResizeEvent(uint32 width, uint32 height) : m_Width(width), m_Height(height) {
+		}
+
+		uint32 GetWidth() const {
+			return m_Width;
+		}
+
+		uint32 GetHeight() {
+			return m_Height;
+		}
+
+		std::string ToString() const {
+			std::stringstream ss;
+			ss << GetName()<<<<": " << m_Width << " x " << m_Height;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(WindowResize)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+	private:
+		uint32 m_Width;
+		uint32 m_Height;
+	};
+
+
+	// Window Close Event
+	class WindowCloseEvent :public Event {
+		EVENT_CLASS_TYPE(WindowClose)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+	};
+}

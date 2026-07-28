@@ -27,7 +27,6 @@ target_sources(Helios
 
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c
-        
 )
 
 target_include_directories(Helios
