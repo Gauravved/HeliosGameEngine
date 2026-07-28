@@ -34,7 +34,7 @@ namespace Helios {
 
 		HWND m_Window = nullptr;
 		
-		///HDC is Handle Device Context: Whenever you want to draw anything on the screen—text, lines, shapes, or images—you cannot just write pixels directly to the monitor. Instead, you have to go through a Device Context.
+		///HDC is Handle Device Context: Whenever you want to draw anything on the screen-text, lines, shapes, or images-you cannot just write pixels directly to the monitor. Instead, you have to go through a Device Context.
 		HDC m_DeviceContext = nullptr;
 
 		//HGLRC: Handle to an OpenGL Rendering Context.Just like an HDC (Device Context) holds all the state information for standard Windows 2D drawing, an HGLRC holds all the state information for OpenGL 3D drawing.

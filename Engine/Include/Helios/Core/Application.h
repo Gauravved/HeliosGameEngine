@@ -3,6 +3,7 @@
 
 #include<Helios/Window/Window.h>
 #include<Helios/Core/LayerStack.h>
+#include<Helios/Events/Event.h>
 
 // defining application namespace 
 namespace Helios{
@@ -19,6 +20,8 @@ namespace Helios{
 
 		void PushLayer(const std::shared_ptr<Layer>& layer);
 		void PushOverlay(const std::shared_ptr<Layer>& overlay);
+
+		void OnEvent(Event& event);
 
 	};
 }

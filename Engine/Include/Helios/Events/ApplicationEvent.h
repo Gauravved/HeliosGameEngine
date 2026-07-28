@@ -27,8 +27,8 @@ namespace Helios {
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WindowResize)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		HL_EVENT_CLASS_TYPE(WindowResize)
+		HL_EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
 	private:
 		uint32 m_Width;
@@ -38,7 +38,7 @@ namespace Helios {
 
 	// Window Close Event
 	class WindowCloseEvent :public Event {
-		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		HL_EVENT_CLASS_TYPE(WindowClose)
+		HL_EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 }

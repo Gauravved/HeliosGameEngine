@@ -12,7 +12,7 @@ namespace Helios {
 		case RendererAPI::API::OpenGL:
 			return std::make_unique<OpenGLRendererAPI>();
 		default:
-			break;
+			return nullptr;
 		}
 	}
 }
