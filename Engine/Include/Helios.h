@@ -21,3 +21,7 @@
 #include<Helios/Renderer/Buffer/OpenGL/OpenGLVertexArray.h>
 #include<Helios/Renderer/OpenGL/OpenGLShader.h>
 #include<Helios/Renderer/OpenGL/OpenGLRendererAPI.h>
+
+// Events
+#include<Helios/Events/ApplicationEvent.h>
+#include<Helios/Events/KeyEvent.h>

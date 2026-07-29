@@ -3,8 +3,8 @@
 
 #include<Helios/Window/Window.h>
 #include<Helios/Core/LayerStack.h>
-#include<Helios/Events/Event.h>
 #include<Helios/Events/ApplicationEvent.h>
+#include<Helios/Events/KeyEvent.h>
 
 // defining application namespace 
 namespace Helios{
@@ -27,5 +27,7 @@ namespace Helios{
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
 		bool OnWindowResize(WindowResizeEvent& event);
+		bool OnKeyPressed(KeyPressedEvent& event);
+		bool OnKeyReleased(KeyReleasedEvent& event);
 	};
 }

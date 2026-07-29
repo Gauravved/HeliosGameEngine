@@ -3,6 +3,7 @@
 #include <Helios/Platform/Windows/WindowsWindow.h>
 #include<Helios/Renderer/OpenGL/OpenGLContext.h>
 #include<Helios/Events/ApplicationEvent.h>
+#include<Helios/Events/KeyEvent.h>
 
 
 namespace Helios {
@@ -54,6 +55,7 @@ namespace Helios {
 			//  Return 1 (non-zero) to tell Windows we handled the background erasure.
 			//  This stops the OS from painting a black rectangle over our OpenGL frame.
 			return 1;
+
 		}
 
 		case WM_PAINT:{
@@ -63,22 +65,25 @@ namespace Helios {
 			//  We do nothing here because OpenGL handles the actual drawing
 			EndPaint(hwnd, &ps);
 			return 0;
+
 		}
 
 		case WM_DESTROY:{
 			PostQuitMessage(0);
 			return 0;
+
 		}
 
 		case WM_CLOSE:{
 			WindowCloseEvent event;
-			if (window &&  window->m_Data.EventCallback) {
+			if (window && window->m_Data.EventCallback) {
 				window->m_Data.EventCallback(event);
 			}
 
 			//DestroyWindow(hwnd);
 			return 0;
 		}
+		
 
 		case WM_SIZE:{
 			// Sent whenever the client area of the window changes size.
@@ -94,6 +99,29 @@ namespace Helios {
 			}
 			return 0;
 		}
+
+		case WM_KEYDOWN: {
+			// The Key code is not in lParam but in wParam
+			uint16 keyCode = static_cast<uint16>(wParam);
+
+			KeyPressedEvent event(keyCode);
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+
+		case WM_KEYUP:{
+			// Extracting key code 
+			uint16 keyCode = static_cast<uint16>(wParam);
+
+			KeyReleasedEvent event(keyCode);
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		
 		}
 
 		return DefWindowProcW(hwnd, message, wParam, lParam);

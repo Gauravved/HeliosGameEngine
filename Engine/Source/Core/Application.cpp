@@ -60,6 +60,20 @@ namespace Helios {
 				return OnWindowResize(e);
 			}
 		);
+
+		// Calling dispatcher for KeyPressedEvent
+		dispatcher.Dispatch<KeyPressedEvent>(
+			[this](KeyPressedEvent& e) {
+				return OnKeyPressed(e);
+			}
+		);
+
+		// Calling dispatcher for KeyReleasedEvent
+		dispatcher.Dispatch<KeyReleasedEvent>(
+			[this](KeyReleasedEvent& e) {
+				return OnKeyReleased(e);
+			}
+		);
 	}
 
 	// What to do on window close event
@@ -72,6 +86,16 @@ namespace Helios {
 	bool Application::OnWindowResize(WindowResizeEvent& event) {
 		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
 		HL_CORE_INFO("New Size: {}",event.ToString());
+		return false;
+	}
+
+	bool Application::OnKeyPressed(KeyPressedEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
+		return false;
+	}
+
+	bool Application::OnKeyReleased(KeyReleasedEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
 		return false;
 	}
 
