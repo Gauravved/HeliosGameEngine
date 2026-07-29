@@ -13,6 +13,11 @@ namespace Helios {
 		RenderCommand::Clear();
 
 	}
+
+	void Renderer::OnWindowResize(uint32 width, uint32 height) {
+		RenderCommand::SetViewport(0, 0, width, height);
+	}
+
 	void Renderer::EndFrame() {
 		//RenderCommand::Clear();
 	}

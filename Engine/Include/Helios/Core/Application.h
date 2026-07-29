@@ -26,5 +26,6 @@ namespace Helios{
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
 	};
 }

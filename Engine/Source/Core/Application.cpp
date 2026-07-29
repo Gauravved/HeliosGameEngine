@@ -53,12 +53,26 @@ namespace Helios {
 				return OnWindowClose(e);
 			}
 		);
+
+		// Calling dispatcher for WindowsResizeEvent
+		dispatcher.Dispatch<WindowResizeEvent>(
+			[this](WindowResizeEvent& e) {
+				return OnWindowResize(e);
+			}
+		);
 	}
 
 	// What to do on window close event
 	bool Application::OnWindowClose(WindowCloseEvent& event) {
+		HL_CORE_INFO("Shutting Down");
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& event) {
+		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+		HL_CORE_INFO("New Size: {}",event.ToString());
+		return false;
 	}
 
 	Application::~Application() = default;

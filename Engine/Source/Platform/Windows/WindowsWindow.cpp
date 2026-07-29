@@ -50,34 +50,50 @@ namespace Helios {
 		WindowsWindow* window = reinterpret_cast<WindowsWindow*>(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
 
 		switch(message){
-		case WM_ERASEBKGND:
+		case WM_ERASEBKGND:{
 			//  Return 1 (non-zero) to tell Windows we handled the background erasure.
 			//  This stops the OS from painting a black rectangle over our OpenGL frame.
 			return 1;
+		}
 
-		case WM_PAINT:
+		case WM_PAINT:{
 			//  Validate the window so Windows stops spamming the message queue with paint requests
 			PAINTSTRUCT ps;
 			BeginPaint(hwnd, &ps);
 			//  We do nothing here because OpenGL handles the actual drawing
 			EndPaint(hwnd, &ps);
 			return 0;
+		}
 
-		case WM_DESTROY:
+		case WM_DESTROY:{
 			PostQuitMessage(0);
 			return 0;
+		}
 
-		case WM_CLOSE:
+		case WM_CLOSE:{
 			WindowCloseEvent event;
-
-			if (window) {
+			if (window &&  window->m_Data.EventCallback) {
 				window->m_Data.EventCallback(event);
 			}
 
 			//DestroyWindow(hwnd);
-
 			return 0;
+		}
 
+		case WM_SIZE:{
+			// Sent whenever the client area of the window changes size.
+			uint32 width = LOWORD(lParam);		// Extract the new client width from the lower 16 bits of lParam.
+			uint32 height = HIWORD(lParam);		// Extract the new client width from the higher 16 bits of lParam.
+
+			window->m_Data.m_Width = width;
+			window->m_Data.m_Height = height;
+
+			WindowResizeEvent event(width, height);
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
 		}
 
 		return DefWindowProcW(hwnd, message, wParam, lParam);

@@ -8,5 +8,6 @@ namespace Helios {
 		static void Init(uint32 width, uint32 height);
 		static void BeginFrame();
 		static void EndFrame();
+		static void OnWindowResize(uint32 width, uint32 height);
 	};
 }
