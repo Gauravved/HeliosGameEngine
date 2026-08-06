@@ -46,6 +46,13 @@ namespace Helios {
 			LPARAM lParam  //Two parameters that carry additional, context-specific data about the event (e.g., coordinates for a mouse click or the specific key pressed on a keyboard)
 		);
 
+		template<typename T>
+		static void DispatchEvent(WindowsWindow* window, T& event) {
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+		}
+
 	private:
 		//HWND = Handle to a Window. It is a pointer to a particular window basically an identifier for the Window so the application can communicate to this window.
 		HWND m_Handle = nullptr;

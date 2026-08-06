@@ -81,9 +81,7 @@ namespace Helios {
 
 		case WM_CLOSE:{
 			WindowCloseEvent event;
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 
 			//DestroyWindow(hwnd);
 			return 0;
@@ -99,9 +97,7 @@ namespace Helios {
 			window->m_Data.m_Height = height;
 
 			WindowResizeEvent event(width, height);
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 
@@ -110,9 +106,7 @@ namespace Helios {
 			uint16 keyCode = static_cast<uint16>(wParam);
 
 			KeyPressedEvent event(keyCode);
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 
@@ -121,9 +115,7 @@ namespace Helios {
 			uint16 keyCode = static_cast<uint16>(wParam);
 
 			KeyReleasedEvent event(keyCode);
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_MOUSEMOVE: {
@@ -134,9 +126,7 @@ namespace Helios {
 			float mouseY = static_cast<float>(GET_Y_LPARAM(lParam));
 
 			MouseMovedEvent event(mouseX, mouseY);
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 
@@ -147,56 +137,42 @@ namespace Helios {
 
 			float yOffset = static_cast<float>(GET_WHEEL_DELTA_WPARAM(wParam)) / WHEEL_DELTA;
 			MouseScrolledEvent event(xOffset, yOffset);
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_LBUTTONDOWN: {
 			MouseButtonPressedEvent event(LeftButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_LBUTTONUP: {
 			MouseButtonReleasedEvent event(LeftButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_RBUTTONDOWN: {
 			MouseButtonPressedEvent event(RightButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_RBUTTONUP: {
 			MouseButtonReleasedEvent event(RightButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}case WM_MBUTTONDOWN: {
 			MouseButtonPressedEvent event(MiddleButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_MBUTTONUP: {
 			MouseButtonReleasedEvent event(MiddleButton);
 
-			if (window && window->m_Data.EventCallback) {
-				window->m_Data.EventCallback(event);
-			}
+			DispatchEvent(window, event);
 			return 0;
 		}
 
