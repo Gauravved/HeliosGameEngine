@@ -11,7 +11,7 @@ namespace Helios {
 		m_Window = std::unique_ptr<Window>(Window::Create());
 
 		// Setting Event Callback
-		m_Window->SetEvenCallback(
+		m_Window->SetEventCallback(
 			[this](Event& e) {
 				OnEvent(e);
 			}
@@ -74,6 +74,34 @@ namespace Helios {
 				return OnKeyReleased(e);
 			}
 		);
+
+		// Calling dispatcher for MouseMovedEvent
+		dispatcher.Dispatch<MouseMovedEvent>(
+			[this](MouseMovedEvent& e) {
+				return OnMouseMoved(e);
+			}
+		);
+
+		// Calling dispatcher for MouseScrolledEvent
+		dispatcher.Dispatch<MouseScrolledEvent>(
+			[this](MouseScrolledEvent& e) {
+				return OnMouseScrolled(e);
+			}
+		);
+
+		// Calling dispatcher for MouseButtonPressed and MouseButtonReleased Events
+		dispatcher.Dispatch<MouseButtonPressedEvent>(
+			[this](MouseButtonPressedEvent& e) {
+				return OnMouseButtonPressed(e);
+			}
+		);
+
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(
+			[this](MouseButtonReleasedEvent& e) {
+				return OnMouseButtonReleased(e);
+			}
+		);
+
 	}
 
 	// What to do on window close event
@@ -95,6 +123,26 @@ namespace Helios {
 	}
 
 	bool Application::OnKeyReleased(KeyReleasedEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
+		return false;
+	}
+
+	bool Application::OnMouseMoved(MouseMovedEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
+		return false;
+	}
+
+	bool Application::OnMouseScrolled(MouseScrolledEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
+		return false;
+	}
+
+	bool Application::OnMouseButtonPressed(MouseButtonPressedEvent& event) {
+		HL_CORE_INFO("{}", event.ToString());
+		return false;
+	}
+
+	bool Application::OnMouseButtonReleased(MouseButtonReleasedEvent& event) {
 		HL_CORE_INFO("{}", event.ToString());
 		return false;
 	}

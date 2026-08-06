@@ -27,7 +27,7 @@ namespace Helios {
 		virtual uint32_t GetWidth() const = 0;
 		virtual uint32_t GetHeight() const = 0;
 
-		virtual void SetEvenCallback(const EventCallbackFn& callbackFunc) = 0;
+		virtual void SetEventCallback(const EventCallbackFn& callbackFunc) = 0;
 
 		static Window* Create(const WindowProperties& properties = WindowProperties());
 	};

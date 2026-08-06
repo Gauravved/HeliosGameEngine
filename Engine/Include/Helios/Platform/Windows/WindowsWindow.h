@@ -21,7 +21,7 @@ namespace Helios {
 		virtual uint32 GetWidth() const override;
 		virtual uint32 GetHeight() const override;
 
-		virtual void SetEvenCallback(const EventCallbackFn& callbackFunc) override;
+		virtual void SetEventCallback(const EventCallbackFn& callbackFunc) override;
 
 	private:
 		//Windows Fucntions for initializing window

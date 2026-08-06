@@ -1,9 +1,14 @@
-// #include <iostream>
+ //#include <iostream>
+// To use GET_X_LPARAM
+#include<windowsx.h>
 
+//#include<Helios/Core/Log.h>
 #include <Helios/Platform/Windows/WindowsWindow.h>
 #include<Helios/Renderer/OpenGL/OpenGLContext.h>
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
+#include<Helios/Events/MouseEvent.h>
+#include<Helios/Input/MouseKeyCodes.h>
 
 
 namespace Helios {
@@ -11,7 +16,7 @@ namespace Helios {
 		return new WindowsWindow(properties);
 	}
 
-	void WindowsWindow::SetEvenCallback(const EventCallbackFn& callbackFunc) {
+	void WindowsWindow::SetEventCallback(const EventCallbackFn& callbackFunc) {
 		m_Data.EventCallback = callbackFunc;
 	}
 
@@ -121,7 +126,80 @@ namespace Helios {
 			}
 			return 0;
 		}
-		
+		case WM_MOUSEMOVE: {
+			// Extracting X and Y position of mouse from lParam. 
+			// Not using LOWORD & HIWORD because it will return a very large positive number in case of dual monitors where it should return negative
+
+			float mouseX = static_cast<float>(GET_X_LPARAM(lParam));
+			float mouseY = static_cast<float>(GET_Y_LPARAM(lParam));
+
+			MouseMovedEvent event(mouseX, mouseY);
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+
+		case WM_MOUSEWHEEL:{
+			float xOffset = 0.0f; // Currently only vertical scrolling supported hence 0
+			// Extract the wheel movement delta from the high-order word of wParam.
+			// The wheel_delta is +-120. New mice can generate lower value for high resolutions hencce normalizing it
+
+			float yOffset = static_cast<float>(GET_WHEEL_DELTA_WPARAM(wParam)) / WHEEL_DELTA;
+			MouseScrolledEvent event(xOffset, yOffset);
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		case WM_LBUTTONDOWN: {
+			MouseButtonPressedEvent event(LeftButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		case WM_LBUTTONUP: {
+			MouseButtonReleasedEvent event(LeftButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		case WM_RBUTTONDOWN: {
+			MouseButtonPressedEvent event(RightButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		case WM_RBUTTONUP: {
+			MouseButtonReleasedEvent event(RightButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}case WM_MBUTTONDOWN: {
+			MouseButtonPressedEvent event(MiddleButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+		case WM_MBUTTONUP: {
+			MouseButtonReleasedEvent event(MiddleButton);
+
+			if (window && window->m_Data.EventCallback) {
+				window->m_Data.EventCallback(event);
+			}
+			return 0;
+		}
+
 		}
 
 		return DefWindowProcW(hwnd, message, wParam, lParam);

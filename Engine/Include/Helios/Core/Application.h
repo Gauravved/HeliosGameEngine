@@ -5,6 +5,7 @@
 #include<Helios/Core/LayerStack.h>
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
+#include<Helios/Events/MouseEvent.h>
 
 // defining application namespace 
 namespace Helios{
@@ -29,5 +30,9 @@ namespace Helios{
 		bool OnWindowResize(WindowResizeEvent& event);
 		bool OnKeyPressed(KeyPressedEvent& event);
 		bool OnKeyReleased(KeyReleasedEvent& event);
+		bool OnMouseMoved(MouseMovedEvent& event);
+		bool OnMouseScrolled(MouseScrolledEvent& event);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
+		bool OnMouseButtonReleased(MouseButtonReleasedEvent& event);
 	};
 }

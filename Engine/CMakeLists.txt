@@ -27,7 +27,7 @@ target_sources(Helios
 
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c
-)
+ "Include/Helios/Input/MouseKeyCodes.h")
 
 target_include_directories(Helios
     PUBLIC

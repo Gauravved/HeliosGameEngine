@@ -89,7 +89,7 @@ namespace Helios {
 
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "Mouse Button Released" << m_Button;
+			ss << "Mouse Button Released: " << m_Button;
 			return ss.str();
 		}
 	};
