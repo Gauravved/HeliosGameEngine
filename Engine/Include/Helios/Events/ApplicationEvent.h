@@ -21,7 +21,7 @@ namespace Helios {
 			return m_Height;
 		}
 
-		std::string ToString() const {
+		std::string ToString() const override {
 			std::stringstream ss;
 			ss << GetName() << ": " << m_Width << " x " << m_Height;
 			return ss.str();
