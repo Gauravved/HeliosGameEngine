@@ -1,7 +1,7 @@
 #pragma once
 
-#include<Helios/Core/Base.h>
 #include<Helios/Events/Event.h>
+#include<Helios/Input/MouseButtonCodes.h>
 
 namespace Helios {
 	class MouseMovedEvent: public Event {
@@ -52,29 +52,29 @@ namespace Helios {
 
 	class MouseButtonEvent :public Event {
 	protected:
-		MouseButtonEvent(uint16 button) :m_Button(button) {}
+		MouseButtonEvent(MouseButton button) :m_Button(button) {}
 
 	public:
 		// Getter 
-		uint16 GetMouseButton() const { return m_Button; }
+		MouseButton GetMouseButton() const { return m_Button; }
 
 		// Macro for Category only
 		HL_EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
 
 	protected:
-		uint16 m_Button;
+		MouseButton m_Button;
 	};
 
 	class MouseButtonPressedEvent :public MouseButtonEvent {
 	public:
-		MouseButtonPressedEvent(uint16 button) : MouseButtonEvent(button) {}
+		MouseButtonPressedEvent(MouseButton button) : MouseButtonEvent(button) {}
 
 		// Marco for class type
 		HL_EVENT_CLASS_TYPE(MouseButtonPressed)
 
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "Mouse Button Pressed: " << m_Button;
+			ss << "Mouse Button Pressed: " << MouseButtonToString(m_Button);
 			return ss.str();
 		}
 
@@ -82,14 +82,14 @@ namespace Helios {
 
 	class MouseButtonReleasedEvent :public MouseButtonEvent {
 	public:
-		MouseButtonReleasedEvent(uint16 button) :MouseButtonEvent(button) {}
+		MouseButtonReleasedEvent(MouseButton button) :MouseButtonEvent(button) {}
 
 		// Macro for class type
 		HL_EVENT_CLASS_TYPE(MouseButtonReleased)
 
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "Mouse Button Released: " << m_Button;
+			ss << "Mouse Button Released: " << MouseButtonToString(m_Button);
 			return ss.str();
 		}
 	};

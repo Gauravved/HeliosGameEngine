@@ -1,0 +1,141 @@
+#include<Windows.h>
+#include<array>
+
+#include<Helios/Platform/Windows/WindowsKeyMap.h>
+
+
+namespace
+{
+    constexpr size_t MaxVirtualKeys = 256;
+
+    std::array<Helios::KeyCode, MaxVirtualKeys> CreateKeyMap()
+    {
+        std::array<Helios::KeyCode, MaxVirtualKeys> map{};
+
+        // Fill every entry with Unknown
+        map.fill(Helios::KeyCode::Unknown);
+
+        // Alphabet
+        map['A'] = Helios::KeyCode::A;
+        map['B'] = Helios::KeyCode::B;
+        map['C'] = Helios::KeyCode::C;
+        map['D'] = Helios::KeyCode::D;
+        map['E'] = Helios::KeyCode::E;
+        map['F'] = Helios::KeyCode::F;
+        map['G'] = Helios::KeyCode::G;
+        map['H'] = Helios::KeyCode::H;
+        map['I'] = Helios::KeyCode::I;
+        map['J'] = Helios::KeyCode::J;
+        map['K'] = Helios::KeyCode::K;
+        map['L'] = Helios::KeyCode::L;
+        map['M'] = Helios::KeyCode::M;
+        map['N'] = Helios::KeyCode::N;
+        map['O'] = Helios::KeyCode::O;
+        map['P'] = Helios::KeyCode::P;
+        map['Q'] = Helios::KeyCode::Q;
+        map['R'] = Helios::KeyCode::R;
+        map['S'] = Helios::KeyCode::S;
+        map['T'] = Helios::KeyCode::T;
+        map['U'] = Helios::KeyCode::U;
+        map['V'] = Helios::KeyCode::V;
+        map['W'] = Helios::KeyCode::W;
+        map['X'] = Helios::KeyCode::X;
+        map['Y'] = Helios::KeyCode::Y;
+        map['Z'] = Helios::KeyCode::Z;
+
+        // Number row
+        map['0'] = Helios::KeyCode::D0;
+        map['1'] = Helios::KeyCode::D1;
+        map['2'] = Helios::KeyCode::D2;
+        map['3'] = Helios::KeyCode::D3;
+        map['4'] = Helios::KeyCode::D4;
+        map['5'] = Helios::KeyCode::D5;
+        map['6'] = Helios::KeyCode::D6;
+        map['7'] = Helios::KeyCode::D7;
+        map['8'] = Helios::KeyCode::D8;
+        map['9'] = Helios::KeyCode::D9;
+
+        // Function Keys
+        map[VK_F1] = Helios::KeyCode::F1;
+        map[VK_F2] = Helios::KeyCode::F2;
+        map[VK_F3] = Helios::KeyCode::F3;
+        map[VK_F4] = Helios::KeyCode::F4;
+        map[VK_F5] = Helios::KeyCode::F5;
+        map[VK_F6] = Helios::KeyCode::F6;
+        map[VK_F7] = Helios::KeyCode::F7;
+        map[VK_F8] = Helios::KeyCode::F8;
+        map[VK_F9] = Helios::KeyCode::F9;
+        map[VK_F10] = Helios::KeyCode::F10;
+        map[VK_F11] = Helios::KeyCode::F11;
+        map[VK_F12] = Helios::KeyCode::F12;
+
+        // Common
+        map[VK_SPACE] = Helios::KeyCode::Space;
+        map[VK_RETURN] = Helios::KeyCode::Enter;
+        map[VK_ESCAPE] = Helios::KeyCode::Escape;
+        map[VK_TAB] = Helios::KeyCode::Tab;
+        map[VK_BACK] = Helios::KeyCode::Backspace;
+        map[VK_DELETE] = Helios::KeyCode::Delete;
+        map[VK_INSERT] = Helios::KeyCode::Insert;
+        map[VK_HOME] = Helios::KeyCode::Home;
+        map[VK_END] = Helios::KeyCode::End;
+        map[VK_PRIOR] = Helios::KeyCode::PageUp;
+        map[VK_NEXT] = Helios::KeyCode::PageDown;
+
+        // Arrow Keys
+        map[VK_LEFT] = Helios::KeyCode::Left;
+        map[VK_RIGHT] = Helios::KeyCode::Right;
+        map[VK_UP] = Helios::KeyCode::Up;
+        map[VK_DOWN] = Helios::KeyCode::Down;
+
+        // Modifiers
+        map[VK_LSHIFT] = Helios::KeyCode::LeftShift;
+        map[VK_RSHIFT] = Helios::KeyCode::RightShift;
+        map[VK_LCONTROL] = Helios::KeyCode::LeftControl;
+        map[VK_RCONTROL] = Helios::KeyCode::RightControl;
+        map[VK_LMENU] = Helios::KeyCode::LeftAlt;
+        map[VK_RMENU] = Helios::KeyCode::RightAlt;
+
+        // Locks
+        map[VK_CAPITAL] = Helios::KeyCode::CapsLock;
+        map[VK_NUMLOCK] = Helios::KeyCode::NumLock;
+        map[VK_SCROLL] = Helios::KeyCode::ScrollLock;
+
+        // Print/Pause
+        map[VK_SNAPSHOT] = Helios::KeyCode::PrintScreen;
+        map[VK_PAUSE] = Helios::KeyCode::Pause;
+
+        // Numpad
+        map[VK_NUMPAD0] = Helios::KeyCode::NumPad0;
+        map[VK_NUMPAD1] = Helios::KeyCode::NumPad1;
+        map[VK_NUMPAD2] = Helios::KeyCode::NumPad2;
+        map[VK_NUMPAD3] = Helios::KeyCode::NumPad3;
+        map[VK_NUMPAD4] = Helios::KeyCode::NumPad4;
+        map[VK_NUMPAD5] = Helios::KeyCode::NumPad5;
+        map[VK_NUMPAD6] = Helios::KeyCode::NumPad6;
+        map[VK_NUMPAD7] = Helios::KeyCode::NumPad7;
+        map[VK_NUMPAD8] = Helios::KeyCode::NumPad8;
+        map[VK_NUMPAD9] = Helios::KeyCode::NumPad9;
+
+        map[VK_MULTIPLY] = Helios::KeyCode::NumPadMultiply;
+        map[VK_ADD] = Helios::KeyCode::NumPadAdd;
+        map[VK_SUBTRACT] = Helios::KeyCode::NumPadSubtract;
+        map[VK_DECIMAL] = Helios::KeyCode::NumPadDecimal;
+        map[VK_DIVIDE] = Helios::KeyCode::NumPadDivide;
+
+        map[VK_APPS] = Helios::KeyCode::Menu;
+
+        return map;
+    }
+
+    const auto s_KeyMap = CreateKeyMap();
+}
+
+namespace Helios {
+    KeyCode WindowsKeyMap::ToKeyCode(uint32 virtualKey) {
+        if (virtualKey >= s_KeyMap.size()) {
+            return KeyCode::Unknown;
+        }
+        return s_KeyMap[virtualKey];
+    }
+}

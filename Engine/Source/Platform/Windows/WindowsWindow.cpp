@@ -4,12 +4,11 @@
 
 //#include<Helios/Core/Log.h>
 #include <Helios/Platform/Windows/WindowsWindow.h>
+#include<Helios/Platform/Windows/WindowsKeyMap.h>
 #include<Helios/Renderer/OpenGL/OpenGLContext.h>
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
 #include<Helios/Events/MouseEvent.h>
-#include<Helios/Input/MouseKeyCodes.h>
-
 
 namespace Helios {
 	Window* Window::Create(const WindowProperties& properties) {
@@ -103,18 +102,18 @@ namespace Helios {
 
 		case WM_KEYDOWN: {
 			// The Key code is not in lParam but in wParam
-			uint16 keyCode = static_cast<uint16>(wParam);
+			uint32 keyCode = static_cast<uint32>(wParam);
 
-			KeyPressedEvent event(keyCode);
+			KeyPressedEvent event(WindowsKeyMap::ToKeyCode(keyCode));
 			DispatchEvent(window, event);
 			return 0;
 		}
 
 		case WM_KEYUP:{
 			// Extracting key code 
-			uint16 keyCode = static_cast<uint16>(wParam);
+			uint32 keyCode = static_cast<uint32>(wParam);
 
-			KeyReleasedEvent event(keyCode);
+			KeyReleasedEvent event(WindowsKeyMap::ToKeyCode(keyCode));
 			DispatchEvent(window, event);
 			return 0;
 		}
@@ -141,37 +140,49 @@ namespace Helios {
 			return 0;
 		}
 		case WM_LBUTTONDOWN: {
-			MouseButtonPressedEvent event(LeftButton);
+			MouseButtonPressedEvent event(MouseButton::Left);
 
 			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_LBUTTONUP: {
-			MouseButtonReleasedEvent event(LeftButton);
+			MouseButtonReleasedEvent event(MouseButton::Left);
 
 			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_RBUTTONDOWN: {
-			MouseButtonPressedEvent event(RightButton);
+			MouseButtonPressedEvent event(MouseButton::Right);
 
 			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_RBUTTONUP: {
-			MouseButtonReleasedEvent event(RightButton);
+			MouseButtonReleasedEvent event(MouseButton::Right);
 
 			DispatchEvent(window, event);
 			return 0;
 		}case WM_MBUTTONDOWN: {
-			MouseButtonPressedEvent event(MiddleButton);
+			MouseButtonPressedEvent event(MouseButton::Middle);
 
 			DispatchEvent(window, event);
 			return 0;
 		}
 		case WM_MBUTTONUP: {
-			MouseButtonReleasedEvent event(MiddleButton);
+			MouseButtonReleasedEvent event(MouseButton::Middle);
 
+			DispatchEvent(window, event);
+			return 0;
+		}
+		case WM_XBUTTONDOWN:{
+			MouseButton button = GET_XBUTTON_WPARAM(wParam) == XBUTTON1 ? MouseButton::Button4 : MouseButton::Button5;
+			MouseButtonPressedEvent event(button);
+			DispatchEvent(window, event);
+			return 0;
+		}
+		case WM_XBUTTONUP: {
+			MouseButton button = GET_XBUTTON_WPARAM(wParam) == XBUTTON1 ? MouseButton::Button4 : MouseButton::Button5;
+			MouseButtonReleasedEvent event(button);
 			DispatchEvent(window, event);
 			return 0;
 		}

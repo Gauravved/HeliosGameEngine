@@ -8,6 +8,7 @@ target_sources(Helios
         Source/Core/LayerStack.cpp
 
         Source/Platform/Windows/WindowsWindow.cpp
+        Source/Platform/Windows/WindowsKeyMap.cpp
 
         Source/Renderer/RendererAPI.cpp
         Source/Renderer/RenderCommand.cpp
@@ -25,9 +26,12 @@ target_sources(Helios
         Source/Renderer/OpenGL/OpenGLVertexArray.cpp
         Source/Renderer/OpenGL/OpenGLShader.cpp
 
+        Source/Input/KeyCodes.cpp
+        Source/Input/MouseButtonCodes.cpp
+
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c
- "Include/Helios/Input/MouseKeyCodes.h")
+)
 
 target_include_directories(Helios
     PUBLIC
