@@ -151,7 +151,7 @@ Current renderer demonstrates:
 
 ## Phase 2 — Engine Core (In Progress)
 
-- [ ] Event System
+- [x] Event System
 - [ ] Input System
 - [ ] Time Step
 - [ ] Camera
