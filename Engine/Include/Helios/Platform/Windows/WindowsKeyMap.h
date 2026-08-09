@@ -8,5 +8,6 @@ namespace Helios {
 	public:
 		static KeyCode ToKeyCode(uint32 virtualKey);
 		//static MouseButton ToMouseButton(uint32 button);
+		static uint32 ToVirtualKey(KeyCode keyCode);
 	};
 }

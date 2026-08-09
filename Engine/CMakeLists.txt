@@ -9,6 +9,8 @@ target_sources(Helios
 
         Source/Platform/Windows/WindowsWindow.cpp
         Source/Platform/Windows/WindowsKeyMap.cpp
+        Source/Platform/Windows/WindowsInput.cpp
+        Source/Platform/Windows/WindowsPlatform.cpp
 
         Source/Renderer/RendererAPI.cpp
         Source/Renderer/RenderCommand.cpp
@@ -26,6 +28,7 @@ target_sources(Helios
         Source/Renderer/OpenGL/OpenGLVertexArray.cpp
         Source/Renderer/OpenGL/OpenGLShader.cpp
 
+        Source/Input/Input.cpp 
         Source/Input/KeyCodes.cpp
         Source/Input/MouseButtonCodes.cpp
 

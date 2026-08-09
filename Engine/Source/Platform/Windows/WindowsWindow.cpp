@@ -100,7 +100,8 @@ namespace Helios {
 			return 0;
 		}
 
-		case WM_KEYDOWN: {
+		case WM_KEYDOWN:
+		case WM_SYSKEYDOWN:{
 			// The Key code is not in lParam but in wParam
 			uint32 keyCode = static_cast<uint32>(wParam);
 
@@ -109,7 +110,8 @@ namespace Helios {
 			return 0;
 		}
 
-		case WM_KEYUP:{
+		case WM_KEYUP:
+		case WM_SYSKEYUP:{
 			// Extracting key code 
 			uint32 keyCode = static_cast<uint32>(wParam);
 

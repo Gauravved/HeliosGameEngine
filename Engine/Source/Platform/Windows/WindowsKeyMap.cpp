@@ -4,9 +4,11 @@
 #include<Helios/Platform/Windows/WindowsKeyMap.h>
 
 
+
 namespace
 {
     constexpr size_t MaxVirtualKeys = 256;
+    constexpr size_t KeyCount = static_cast<size_t>(Helios::KeyCode::Menu) + 1;
 
     std::array<Helios::KeyCode, MaxVirtualKeys> CreateKeyMap()
     {
@@ -89,11 +91,11 @@ namespace
         map[VK_DOWN] = Helios::KeyCode::Down;
 
         // Modifiers
-        map[VK_LSHIFT] = Helios::KeyCode::LeftShift;
+        map[VK_SHIFT] = Helios::KeyCode::LeftShift;
         map[VK_RSHIFT] = Helios::KeyCode::RightShift;
-        map[VK_LCONTROL] = Helios::KeyCode::LeftControl;
+        map[VK_CONTROL] = Helios::KeyCode::LeftControl;
         map[VK_RCONTROL] = Helios::KeyCode::RightControl;
-        map[VK_LMENU] = Helios::KeyCode::LeftAlt;
+        map[VK_MENU] = Helios::KeyCode::LeftAlt;
         map[VK_RMENU] = Helios::KeyCode::RightAlt;
 
         // Locks
@@ -128,7 +130,21 @@ namespace
         return map;
     }
 
+    std::array<Helios::uint32, KeyCount> CreateVirtualKeyMap() {
+        std::array<Helios::uint32, KeyCount> map{};
+        map.fill(0);
+
+        for (Helios::uint32 vk = 0; vk < MaxVirtualKeys; ++vk) {
+            Helios::KeyCode key = CreateKeyMap()[vk];
+            if (key != Helios::KeyCode::Unknown) {
+                map[static_cast<size_t>(key)] = vk;
+            }
+        }
+        return map;
+    }
+
     const auto s_KeyMap = CreateKeyMap();
+    const auto s_VirtualKeyMap = CreateVirtualKeyMap();
 }
 
 namespace Helios {
@@ -137,5 +153,13 @@ namespace Helios {
             return KeyCode::Unknown;
         }
         return s_KeyMap[virtualKey];
+    }
+
+    uint32 WindowsKeyMap::ToVirtualKey(KeyCode keyCode) {
+        size_t index = static_cast<size_t>(keyCode);
+        if (index >= s_VirtualKeyMap.size()) {
+            return 0;
+        }
+        return s_VirtualKeyMap[index];
     }
 }

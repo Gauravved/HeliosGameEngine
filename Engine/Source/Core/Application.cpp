@@ -3,12 +3,15 @@
 #include <Helios/Core/Application.h>
 #include<Helios/Renderer/Renderer.h>
 #include<Helios/Core/Log.h>
+#include<Helios/Platform/Windows/WindowsPlatform.h>
+#include<Helios/Input/Input.h>
 
 namespace Helios {
 
 	Application::Application() {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		WindowsPlatform::Initialize();
 
 		// Setting Event Callback
 		m_Window->SetEventCallback(
@@ -34,6 +37,9 @@ namespace Helios {
 			m_Window->GetHeight()
 		);
 		while (m_Running) {
+			if (Input::IsKeyPressed(KeyCode::W)) {
+				HL_CORE_INFO("W is pressed");
+			}
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
 				layer->OnUpdate();
