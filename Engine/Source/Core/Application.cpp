@@ -43,7 +43,7 @@ namespace Helios {
 			if (Input::IsMouseButtonPressed(MouseButton::Left)) {
 				HL_CORE_INFO("Left is pressed");
 			}
-			HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
+			//HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
 				layer->OnUpdate();

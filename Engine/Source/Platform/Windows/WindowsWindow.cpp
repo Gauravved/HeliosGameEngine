@@ -105,7 +105,7 @@ namespace Helios {
 			// The Key code is not in lParam but in wParam
 			uint32 keyCode = static_cast<uint32>(wParam);
 
-			KeyPressedEvent event(WindowsKeyMap::ToKeyCode(keyCode));
+			KeyPressedEvent event(WindowsKeyMap::TranslateKey(keyCode, lParam));
 			DispatchEvent(window, event);
 			return 0;
 		}
@@ -115,7 +115,7 @@ namespace Helios {
 			// Extracting key code 
 			uint32 keyCode = static_cast<uint32>(wParam);
 
-			KeyReleasedEvent event(WindowsKeyMap::ToKeyCode(keyCode));
+			KeyReleasedEvent event(WindowsKeyMap::TranslateKey(keyCode, lParam));
 			DispatchEvent(window, event);
 			return 0;
 		}

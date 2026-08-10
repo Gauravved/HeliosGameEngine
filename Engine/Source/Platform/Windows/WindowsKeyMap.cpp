@@ -57,6 +57,19 @@ namespace
         map['8'] = Helios::KeyCode::D8;
         map['9'] = Helios::KeyCode::D9;
 
+        //Symbols
+        map[VK_OEM_3] = Helios::KeyCode::GraveAccent;
+        map[VK_OEM_MINUS] = Helios::KeyCode::Minus;
+        map[VK_OEM_PLUS] = Helios::KeyCode::Equal;
+        map[VK_OEM_4] = Helios::KeyCode::LeftBracket;
+        map[VK_OEM_6] = Helios::KeyCode::RightBracket;
+        map[VK_OEM_5] = Helios::KeyCode::Backslash;
+        map[VK_OEM_1] = Helios::KeyCode::Semicolon;
+        map[VK_OEM_7] = Helios::KeyCode::Apostrophe;
+        map[VK_OEM_COMMA] = Helios::KeyCode::Comma;
+        map[VK_OEM_PERIOD] = Helios::KeyCode::Period;
+        map[VK_OEM_2] = Helios::KeyCode::Slash;
+
         // Function Keys
         map[VK_F1] = Helios::KeyCode::F1;
         map[VK_F2] = Helios::KeyCode::F2;
@@ -91,11 +104,11 @@ namespace
         map[VK_DOWN] = Helios::KeyCode::Down;
 
         // Modifiers
-        map[VK_SHIFT] = Helios::KeyCode::LeftShift;
+        map[VK_LSHIFT] = Helios::KeyCode::LeftShift;
         map[VK_RSHIFT] = Helios::KeyCode::RightShift;
-        map[VK_CONTROL] = Helios::KeyCode::LeftControl;
+        map[VK_LCONTROL] = Helios::KeyCode::LeftControl;
         map[VK_RCONTROL] = Helios::KeyCode::RightControl;
-        map[VK_MENU] = Helios::KeyCode::LeftAlt;
+        map[VK_LMENU] = Helios::KeyCode::LeftAlt;
         map[VK_RMENU] = Helios::KeyCode::RightAlt;
 
         // Locks
@@ -125,6 +138,7 @@ namespace
         map[VK_DECIMAL] = Helios::KeyCode::NumPadDecimal;
         map[VK_DIVIDE] = Helios::KeyCode::NumPadDivide;
 
+
         map[VK_APPS] = Helios::KeyCode::Menu;
 
         return map;
@@ -148,11 +162,33 @@ namespace
 }
 
 namespace Helios {
-    KeyCode WindowsKeyMap::ToKeyCode(uint32 virtualKey) {
-        if (virtualKey >= s_KeyMap.size()) {
+    KeyCode WindowsKeyMap::TranslateKey(uint32 virtualKey, uint64 lParam) {
+
+        uint32 translatedVirtualKey = virtualKey;
+
+        // This is to determine right and left shifts
+        // The keyboard scan code is stored in bits 16-23 of lParam.
+        // Shift it down to the lowest byte and mask out the remaining flags.
+        uint32 scanCode = (lParam >> 16) & 0xFF;
+
+        // Bit 24 of lParam are the extended bits required to determine the left and right alt and ctrl
+        // 1ull because your lParam parameter is uint64. It avoids any possibility of integer promotion issues.
+        bool isExtended = (lParam & (1ull << 24)) != 0;
+
+        
+        if (translatedVirtualKey == VK_SHIFT) {
+            translatedVirtualKey = MapVirtualKeyW(scanCode, MAPVK_VSC_TO_VK_EX);
+        }
+        else if (translatedVirtualKey == VK_CONTROL) {
+            translatedVirtualKey = isExtended ? VK_RCONTROL : VK_LCONTROL;
+        }
+        else if (translatedVirtualKey == VK_MENU) {
+            translatedVirtualKey = isExtended ? VK_RMENU : VK_LMENU;
+        }
+        if (translatedVirtualKey >= s_KeyMap.size()) {
             return KeyCode::Unknown;
         }
-        return s_KeyMap[virtualKey];
+        return s_KeyMap[translatedVirtualKey];
     }
 
     uint32 WindowsKeyMap::ToVirtualKey(KeyCode keyCode) {

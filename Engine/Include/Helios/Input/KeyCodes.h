@@ -48,6 +48,19 @@ namespace Helios
         D8,
         D9,
 
+        // Sumbols
+        GraveAccent,      // `
+        Minus,            // -
+        Equal,            // =
+        LeftBracket,      // [
+        RightBracket,     // ]
+        Backslash,        // 
+        Semicolon,        // ;
+        Apostrophe,       // '
+        Comma,            // ,
+        Period,           // .
+        Slash,            // /
+
         // Function Keys
         F1,
         F2,

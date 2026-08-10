@@ -16,6 +16,18 @@ namespace
 
         // Numbers
         "D0","D1","D2","D3","D4","D5","D6","D7","D8","D9",
+        // Symbols
+        "GraveAccent",
+        "Minus",
+        "Equal",
+        "LeftBracket",
+        "RightBracket",
+        "Backslash",
+        "Semicolon",
+        "Apostrophe",
+        "Comma",
+        "Period",
+        "Slash",
 
         // Function Keys
         "F1","F2","F3","F4","F5","F6",
