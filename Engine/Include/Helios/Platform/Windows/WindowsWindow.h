@@ -23,6 +23,10 @@ namespace Helios {
 
 		virtual void SetEventCallback(const EventCallbackFn& callbackFunc) override;
 
+		void* GetNativeWindow() const override {
+			return m_Handle;
+		}
+
 	private:
 		//Windows Fucntions for initializing window
 		void Init(const WindowProperties& properties);

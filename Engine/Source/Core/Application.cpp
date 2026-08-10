@@ -11,7 +11,7 @@ namespace Helios {
 	Application::Application() {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		WindowsPlatform::Initialize();
+		WindowsPlatform::Initialize(*m_Window);
 
 		// Setting Event Callback
 		m_Window->SetEventCallback(
@@ -43,6 +43,7 @@ namespace Helios {
 			if (Input::IsMouseButtonPressed(MouseButton::Left)) {
 				HL_CORE_INFO("Left is pressed");
 			}
+			HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
 				layer->OnUpdate();

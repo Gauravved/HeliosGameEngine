@@ -2,8 +2,11 @@
 
 #include<Helios/Platform/Windows/WindowsInput.h>
 #include<Helios/Platform/Windows/WindowsKeyMap.h>
+#include<Helios/Window/Window.h>
 
 namespace Helios {
+	WindowsInput::WindowsInput(Window& window) : m_Window(window) {}
+
 	bool WindowsInput::IsKeyPressedImpl(KeyCode key) const {
 		const uint32 virtualKey = WindowsKeyMap::ToVirtualKey(key);
 
@@ -39,16 +42,18 @@ namespace Helios {
 	}
 	float WindowsInput::GetMouseXImpl() const {
 		POINT point{};
-
+		HWND hwnd = static_cast<HWND>(m_Window.GetNativeWindow());
 		// Retrieve the current cursor position in screen coordinates.
 		GetCursorPos(&point);
+		ScreenToClient(hwnd, &point);
 
 		return static_cast<float>(point.x);
 	}
 	float WindowsInput::GetMouseYImpl() const {
 		POINT point{};
-
+		HWND hwnd = static_cast<HWND>(m_Window.GetNativeWindow());
 		GetCursorPos(&point);
+		ScreenToClient(hwnd, &point);
 		return static_cast<float>(point.y);
 	}
 }

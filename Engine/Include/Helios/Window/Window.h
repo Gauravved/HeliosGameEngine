@@ -29,6 +29,8 @@ namespace Helios {
 
 		virtual void SetEventCallback(const EventCallbackFn& callbackFunc) = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		static Window* Create(const WindowProperties& properties = WindowProperties());
 	};
 }
