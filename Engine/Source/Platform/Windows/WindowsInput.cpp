@@ -17,12 +17,38 @@ namespace Helios {
 		return (GetAsyncKeyState(virtualKey) & KeyPressedMask) != 0;
 	}
 	bool WindowsInput::IsMouseButtonPressedImpl(MouseButton button) const {
-		return false;
+		int virtualButton = 0;
+
+		switch (button) {
+		case MouseButton::Left: virtualButton = VK_LBUTTON; break;
+		case MouseButton::Right: virtualButton = VK_RBUTTON; break;
+		case MouseButton::Middle: virtualButton = VK_MBUTTON; break;
+		case MouseButton::Button4: virtualButton = VK_XBUTTON1; break;
+		case MouseButton::Button5: virtualButton = VK_XBUTTON2; break;
+		}
+
+		// Hexadecimal:0x8000 Binary : 1000 0000 0000 0000 Only bit 15 is set.
+		// Bit 15 (highest bit)->Is the key currently DOWN ?
+		// Bit 0  (lowest bit)->Was the key pressed since the last call ? (legacy behavior)
+
+		constexpr SHORT ButtonPressedMasked = 0x8000;
+
+		// GetAsyncKeyState() also works for mouse buttons.
+		// The highest bit is set while the button is currently pressed.
+		return (GetAsyncKeyState(virtualButton) & ButtonPressedMasked) != 0;
 	}
 	float WindowsInput::GetMouseXImpl() const {
-		return 0;
+		POINT point{};
+
+		// Retrieve the current cursor position in screen coordinates.
+		GetCursorPos(&point);
+
+		return static_cast<float>(point.x);
 	}
 	float WindowsInput::GetMouseYImpl() const {
-		return 0;
+		POINT point{};
+
+		GetCursorPos(&point);
+		return static_cast<float>(point.y);
 	}
 }

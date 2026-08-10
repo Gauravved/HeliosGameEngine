@@ -40,6 +40,9 @@ namespace Helios {
 			if (Input::IsKeyPressed(KeyCode::W)) {
 				HL_CORE_INFO("W is pressed");
 			}
+			if (Input::IsMouseButtonPressed(MouseButton::Left)) {
+				HL_CORE_INFO("Left is pressed");
+			}
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
 				layer->OnUpdate();
@@ -134,7 +137,7 @@ namespace Helios {
 	}
 
 	bool Application::OnMouseMoved(MouseMovedEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
+		//HL_CORE_INFO("{}", event.ToString());
 		return false;
 	}
 
