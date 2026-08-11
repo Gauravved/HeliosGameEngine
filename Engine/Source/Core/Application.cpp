@@ -7,6 +7,15 @@
 #include<Helios/Platform/Windows/WindowsPlatform.h>
 #include<Helios/Input/Input.h>
 
+namespace {
+
+	// Setting Clock to capture fram times
+	// steady_clock is monotonic and never goes back in time
+	using Clock = std::chrono::steady_clock;
+
+
+}
+
 namespace Helios {
 
 	Application::Application() {
@@ -15,7 +24,6 @@ namespace Helios {
 		WindowsPlatform::Initialize(*m_Window);
 
 		// Setting the Last Frame to avoid huge delta
-		using Clock = std::chrono::steady_clock;
 		m_LastFrameTime = std::chrono::duration<float>(Clock::now().time_since_epoch()).count();
 
 		// Setting Event Callback
@@ -36,11 +44,6 @@ namespace Helios {
 	}
 
 	void Application::Run() {
-		// Setting Clock to capture fram times
-		// steady_clock is monotonic and never goes back in time
-		using Clock = std::chrono::steady_clock;
-
-
 
 		HL_CORE_INFO("Window created in {} x {} resolution",m_Window->GetWidth(), m_Window->GetHeight());
 		Renderer::Init(

@@ -41,6 +41,7 @@ target_include_directories(Helios
         Include
         ../ThirdParty/glad/include
         ../ThirdParty/spdlog
+        ../ThirdParty/glm
 )
 target_link_libraries(Helios
     PRIVATE

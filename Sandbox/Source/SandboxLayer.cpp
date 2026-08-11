@@ -73,6 +73,9 @@ SandboxLayer::~SandboxLayer() {
 }
 
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
+
+    //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
+
     m_Shader->Bind();
 
     Helios::RenderCommand::DrawIndexed(m_VertexArray);
