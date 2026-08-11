@@ -1,4 +1,5 @@
 #include <iostream>
+#include<chrono> // To Get Current Time
 
 #include <Helios/Core/Application.h>
 #include<Helios/Renderer/Renderer.h>
@@ -12,6 +13,10 @@ namespace Helios {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		WindowsPlatform::Initialize(*m_Window);
+
+		// Setting the Last Frame to avoid huge delta
+		using Clock = std::chrono::steady_clock;
+		m_LastFrameTime = std::chrono::duration<float>(Clock::now().time_since_epoch()).count();
 
 		// Setting Event Callback
 		m_Window->SetEventCallback(
@@ -31,12 +36,28 @@ namespace Helios {
 	}
 
 	void Application::Run() {
+		// Setting Clock to capture fram times
+		// steady_clock is monotonic and never goes back in time
+		using Clock = std::chrono::steady_clock;
+
+
+
 		HL_CORE_INFO("Window created in {} x {} resolution",m_Window->GetWidth(), m_Window->GetHeight());
 		Renderer::Init(
 			m_Window->GetWidth(),
 			m_Window->GetHeight()
 		);
 		while (m_Running) {
+			auto now = Clock::now();
+
+			float currentTime = std::chrono::duration<float>(
+				now.time_since_epoch()
+			).count();
+
+			TimeStep timeStep = currentTime - m_LastFrameTime;
+
+			m_LastFrameTime = currentTime;
+
 			if (Input::IsKeyPressed(KeyCode::W)) {
 				HL_CORE_INFO("W is pressed");
 			}
@@ -46,7 +67,7 @@ namespace Helios {
 			//HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
-				layer->OnUpdate();
+				layer->OnUpdate(timeStep);
 			}
 			m_Window->OnUpdate();
 			//Renderer::EndFrame();

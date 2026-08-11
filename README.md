@@ -153,7 +153,7 @@ Current renderer demonstrates:
 
 - [x] Event System
 - [x] Input System
-- [ ] Time Step
+- [x] Time Step
 - [ ] Camera
 - [ ] ImGui Integration
 

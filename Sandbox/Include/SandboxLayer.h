@@ -8,7 +8,7 @@ public:
 	~SandboxLayer();
 	
 
-	void OnUpdate() override;
+	void OnUpdate(Helios::TimeStep timeStep) override;
 
 private:
 	std::shared_ptr<Helios::VertexArray> m_VertexArray;

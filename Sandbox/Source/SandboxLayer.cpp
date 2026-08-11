@@ -72,7 +72,7 @@ SandboxLayer::~SandboxLayer() {
 
 }
 
-void SandboxLayer::OnUpdate() {
+void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
     m_Shader->Bind();
 
     Helios::RenderCommand::DrawIndexed(m_VertexArray);

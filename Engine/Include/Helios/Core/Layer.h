@@ -2,6 +2,8 @@
 
 #include<string>
 
+#include<Helios/Core/TimeStep.h>
+
 namespace Helios {
 	class Layer {
 	public:
@@ -11,7 +13,7 @@ namespace Helios {
 		// Not Pure virtua because some classes may need all functions and some might not
 		virtual void OnAttach() {};
 		virtual void OnDetach() {};
-		virtual void OnUpdate() {};
+		virtual void OnUpdate(TimeStep timeStep) {};
 
 		const std::string& GetName() const { return m_DebugName; }
 	

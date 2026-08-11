@@ -3,6 +3,7 @@
 
 #include<Helios/Window/Window.h>
 #include<Helios/Core/LayerStack.h>
+#include<Helios/Core/TimeStep.h>
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
 #include<Helios/Events/MouseEvent.h>
@@ -14,6 +15,7 @@ namespace Helios{
 		bool m_Running = true;
 		std::unique_ptr<Helios::Window> m_Window;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 	public:
 		Application();
