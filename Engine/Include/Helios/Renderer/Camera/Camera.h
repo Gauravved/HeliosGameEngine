@@ -7,12 +7,12 @@ namespace Helios {
 	public:
 		virtual ~Camera() = default;
 
-		const glm::vec4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
+		[[nodiscard]] const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 
 	protected:
 		Camera() = default;
 
 	protected:
-		glm::vec4& m_ProjectionMatrix;
+		glm::mat4 m_ProjectionMatrix{ 1.0f };
 	};
 }
