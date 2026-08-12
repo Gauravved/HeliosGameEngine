@@ -21,6 +21,8 @@ target_sources(Helios
         Source/Renderer/Buffer/IndexBuffer.cpp 
         Source/Renderer/Buffer/VertexArray.cpp
 
+        Source/Renderer/Camera/OrthographicCamera.cpp
+
         Source/Renderer/OpenGL/OpenGLContext.cpp
         Source/Renderer/OpenGL/OpenGLRendererAPI.cpp
         Source/Renderer/OpenGL/OpenGLVertexBuffer.cpp

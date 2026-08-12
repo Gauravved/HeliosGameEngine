@@ -7,13 +7,18 @@ namespace Helios {
 	class OrthographicCamera : public Camera {
 	public:
 		// Constructor
-		explicit OrthographicCamera(float left, float right, float bottom, float top);
+		explicit OrthographicCamera(
+			float left, float right,
+			float bottom, float top);
 
 		// Destructor
 		~OrthographicCamera() override = default;
 
 		// Setter
-		void SetProjection(float left, float right, float bottom, float top);
+		void SetProjection(
+			float left, float right,
+			float bottom, float top);
+
 		void SetPosition(const glm::vec3& position); // Vec3 because position is 3 dimensional x, y, z
 		void SetRotation(float rotation);
 
