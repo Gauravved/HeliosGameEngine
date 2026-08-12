@@ -26,3 +26,6 @@
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
 #include<Helios//Events/MouseEvent.h>
+
+// Cameras
+#include<Helios/Renderer/Camera/OrthographicCamera.h>
