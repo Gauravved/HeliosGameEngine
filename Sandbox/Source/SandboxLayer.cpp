@@ -2,7 +2,7 @@
 
 
 SandboxLayer::SandboxLayer()
-    : Helios::Layer("Sandbox")
+    : Helios::Layer("Sandbox"), m_Camera(-1.0f, 1.0f, -1.0f, 1.0f)
 {
 
     /*This is not three points on your monitor.
@@ -77,6 +77,9 @@ void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
     //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
 
     m_Shader->Bind();
+
+    // SetCamera ViewProjection in Shader
+    m_Shader->SetMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
 
     Helios::RenderCommand::DrawIndexed(m_VertexArray);
 }

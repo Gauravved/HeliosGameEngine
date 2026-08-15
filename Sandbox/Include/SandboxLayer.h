@@ -15,4 +15,6 @@ private:
 	std::shared_ptr<Helios::VertexBuffer> m_VertexBuffer;
 	std::shared_ptr<Helios::IndexBuffer> m_IndexBuffer;
 	std::shared_ptr<Helios::Shader> m_Shader;
+
+	Helios::OrthographicCamera m_Camera;
 };

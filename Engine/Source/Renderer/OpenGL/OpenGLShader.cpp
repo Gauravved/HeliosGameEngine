@@ -3,6 +3,7 @@
 #include<sstream>
 
 #include<glad/gl.h>
+#include<glm/gtc/type_ptr.hpp>
 
 #include<Helios/Core/Log.h>
 #include<Helios/Renderer/OpenGL/OpenGLShader.h>
@@ -166,6 +167,24 @@ namespace Helios {
 	}
 	void OpenGLShader::Unbind() const {
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value) {
+		// Get Uniform Location
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+
+		if (location == -1) {
+			HL_CORE_WARN("Uniform '{}' found in shader program {}", name, m_RendererID);
+			return;
+		}
+		// Sent the matrix to OpenGL
+		glUniformMatrix4fv(
+			location,				// Location of the name
+			1,						// Number of matrices we are uploading
+			GL_FALSE,				// Should OpenGL transpose the matrix? No, Because GLM and OpenGL both use column-major matrix conventions by default, so the matrix can be uploaded directly.
+			glm::value_ptr(value)	// Because OpenGL expects pointer and glm::mat4 is not a pointer
+		);
+
 	}
 
 }
