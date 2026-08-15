@@ -61,18 +61,45 @@ This project emphasizes:
 
 ```
 Helios/
+├── .gitignore                      # Ignores build folders, binaries, and IDE files
+├── README.md                       # Project overview and build instructions
+├── LICENSE                         # Open-source license (if applicable)
+├── CMakeLists.txt                  # Root CMake file: configures the whole project
 │
-├── Engine/
-│   ├── Include/
-│   ├── Source/
-│   └── ThirdParty/
+├── Scripts/                        # Helper scripts (e.g., build.bat, build.sh, format.py)
 │
-├── Sandbox/
-│   ├── Assets/
-│   └── Source/
+├── Engine/                         # The core Helios Engine (builds as a Library)
+│   ├── CMakeLists.txt              # Engine-specific CMake configuration
+│   ├── Include/                    # Public headers (what the Sandbox can see)
+│   │   └── Helios/                 # Namespace folder to allow: #include <Helios/Core.h>
+│   │       ├── Core/               # App setup, Windowing, Logging
+│   │       ├── Events/             # Input, Window Resize, Key presses
+│   │       ├── Renderer/           # Graphics API (OpenGL/Vulkan) wrappers
+│   │       ├── Platform/           # Platform Supported by the Application
+│   │       │   └── WindowsWindow   # Windows Specific files
+│   │       └── Input               # Handling Interpolation of inputs
+│   └── Source/                     # Private source files (.cpp files)
+│       ├── Core/
+│       ├── Events/
+│       ├── Renderer/           
+│       ├── Platform/          
+│       │   └── WindowsWindow  
+│       └── Input 
 │
-├── CMakeLists.txt
-└── README.md
+├── Sandbox/                        # The test application (builds as an Executable)
+│   ├── CMakeLists.txt              # Sandbox CMake (links against the Engine)
+│   ├── Include                     # Include Header files for Sandbox 
+│   ├── Assets/                     # Game assets loaded at runtime
+│   │   ├── Shaders/           
+│   │   ├── Textures/
+│   │   └── Scenes/
+│   └── Source/                     # Client source code (e.g., SandboxApp.cpp)
+│
+└── ThirdParty/                # External vendor libraries (Git submodules)
+    ├── spdlog/                # Example: Fast logging library
+    ├── GLFW/                  # Example: Window creation library
+    ├── glad/                  # Example: Graphics API loader
+    └── glm/                   # Example: Mathematics library
 ```
 
 ---
