@@ -63,7 +63,6 @@ This project emphasizes:
 Helios/
 ├── .gitignore                      # Ignores build folders, binaries, and IDE files
 ├── README.md                       # Project overview and build instructions
-├── LICENSE                         # Open-source license (if applicable)
 ├── CMakeLists.txt                  # Root CMake file: configures the whole project
 │
 ├── Scripts/                        # Helper scripts (e.g., build.bat, build.sh, format.py)
