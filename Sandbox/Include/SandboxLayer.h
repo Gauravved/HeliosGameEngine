@@ -2,19 +2,19 @@
 
 #include<Helios.h>
 
-class SandboxLayer: public Helios::Layer {
+class SandboxLayer : public Helios::Layer {
 public:
-	SandboxLayer();
+	explicit SandboxLayer(float aspectRatio);
 	~SandboxLayer();
-	
+
 
 	void OnUpdate(Helios::TimeStep timeStep) override;
+	void OnEvent(Helios::Event& event) override;
 
 private:
+	Helios::OrthographicCameraController m_CameraController;
 	std::shared_ptr<Helios::VertexArray> m_VertexArray;
 	std::shared_ptr<Helios::VertexBuffer> m_VertexBuffer;
 	std::shared_ptr<Helios::IndexBuffer> m_IndexBuffer;
 	std::shared_ptr<Helios::Shader> m_Shader;
-
-	Helios::OrthographicCamera m_Camera;
 };

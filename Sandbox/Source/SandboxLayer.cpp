@@ -1,8 +1,9 @@
 #include<SandboxLayer.h>
 
 
-SandboxLayer::SandboxLayer()
-    : Helios::Layer("Sandbox"), m_Camera(-1.0f, 1.0f, -1.0f, 1.0f)
+SandboxLayer::SandboxLayer(float aspectRatio)
+    : Helios::Layer("Sandbox"), 
+      m_CameraController(aspectRatio)
 {
 
     /*This is not three points on your monitor.
@@ -25,12 +26,20 @@ SandboxLayer::SandboxLayer()
      Second vertex 0.5f, -0.5f, 0.0f means Bottom Right
      Third vertex 0.0f, 0.5f, 0.0f means Top Middle*/
 
-	float vertices[] = {
-            // Position             // Colors
-		-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, // Red
-		0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f, // Green
-		0.0f, 0.5f, 0.0f,       0.0f, 0.0f, 1.0f  // Blue
-	};
+	//float vertices[] = {
+ //           // Position             // Colors
+	//	-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, // Red
+	//	0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f, // Green
+	//	0.0f, 0.5f, 0.0f,       0.0f, 0.0f, 1.0f  // Blue
+	//};
+
+    // These are the same values with with respect to worldf space and 16:9 aspect ratio insted of 1:1 aspect ratio
+    float vertices[] = {
+        // Position                 // Colors
+        -0.5f, -0.288675f, 0.0f,    1.0f, 0.0f, 0.0f, // Red
+         0.5f, -0.288675f, 0.0f,    0.0f, 1.0f, 0.0f, // Green
+         0.0f,  0.577350f, 0.0f,    0.0f, 0.0f, 1.0f  // Blue
+    };
 
     // Instead of duplicating vertex data, we reference existing vertices.
     Helios::uint32 indices[] = {
@@ -75,11 +84,16 @@ SandboxLayer::~SandboxLayer() {
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
 
     //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
+    m_CameraController.OnUpdate(timeStep);
 
     m_Shader->Bind();
 
     // SetCamera ViewProjection in Shader
-    m_Shader->SetMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
+    m_Shader->SetMat4("u_ViewProjection", m_CameraController.GetCamera().GetViewProjectionMatrix());
 
     Helios::RenderCommand::DrawIndexed(m_VertexArray);
+}
+
+void SandboxLayer::OnEvent(Helios::Event& event) {
+    m_CameraController.OnEvent(event);
 }

@@ -11,12 +11,6 @@
 // defining application namespace 
 namespace Helios{
 	class Application {
-	private:
-		bool m_Running = true;
-		std::unique_ptr<Helios::Window> m_Window;
-		LayerStack m_LayerStack;
-		float m_LastFrameTime = 0.0f;
-
 	public:
 		Application();
 		virtual ~Application();
@@ -36,5 +30,14 @@ namespace Helios{
 		bool OnMouseScrolled(MouseScrolledEvent& event);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
 		bool OnMouseButtonReleased(MouseButtonReleasedEvent& event);
+
+	protected:
+		Window& GetWindow() const { return *m_Window; }
+
+	private:
+		bool m_Running = true;
+		std::unique_ptr<Helios::Window> m_Window;
+		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 	};
 }

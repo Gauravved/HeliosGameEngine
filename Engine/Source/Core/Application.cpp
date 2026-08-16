@@ -61,12 +61,12 @@ namespace Helios {
 
 			m_LastFrameTime = currentTime;
 
-			if (Input::IsKeyPressed(KeyCode::W)) {
+			/*if (Input::IsKeyPressed(KeyCode::W)) {
 				HL_CORE_INFO("W is pressed");
 			}
 			if (Input::IsMouseButtonPressed(MouseButton::Left)) {
 				HL_CORE_INFO("Left is pressed");
-			}
+			}*/
 			//HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
 			Renderer::BeginFrame();
 			for (auto& layer : m_LayerStack) {
