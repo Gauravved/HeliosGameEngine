@@ -136,6 +136,13 @@ namespace Helios {
 			}
 		);
 
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
+			if (event.Handled) {
+				break;
+			}
+			(*it)->OnEvent(event);
+		}
+
 	}
 
 	// What to do on window close event
