@@ -6,7 +6,7 @@ namespace Helios {
 
 	class PerspectiveCamera :public Camera {
 	public:
-		
+
 		//Constructor
 		explicit PerspectiveCamera(
 			float fov,
