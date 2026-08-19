@@ -52,6 +52,11 @@ namespace Helios {
 				return OnWindowResizedEvent(event);
 			}
 		);
+		dispatcher.Dispatch<MouseMovedEvent>(
+			[this](MouseMovedEvent& event) {
+				return OnMouseMovedEvent(event);
+			}
+		);
 
 	}
 
@@ -86,6 +91,28 @@ namespace Helios {
 			m_ZoomLevel
 		);
 
+		return false;
+	}
+
+	bool OrthographicCameraController::OnMouseMovedEvent(MouseMovedEvent& event) {
+		if (!Input::IsMouseButtonPressed(MouseButton::Right)) {
+			m_FirstMouse = true;
+			return false;
+		}
+
+		float mouseX = event.GetMouseX();
+
+		if (m_FirstMouse) {
+			m_LastMouseX = mouseX;
+			m_FirstMouse = false;
+			return false;
+		}
+
+		float deltaX = mouseX - m_LastMouseX;
+		m_LastMouseX = mouseX;
+		float rotation = m_Camera.GetRotation();
+		rotation += deltaX * m_RotationSpeed;
+		m_Camera.SetRotation(rotation);
 		return false;
 	}
 }

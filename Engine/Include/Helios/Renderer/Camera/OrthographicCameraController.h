@@ -21,12 +21,17 @@ namespace Helios {
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& event);
 		bool OnWindowResizedEvent(WindowResizeEvent& event);
+		bool OnMouseMovedEvent(MouseMovedEvent& event);
 
 	private:
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
 
 		float m_CameraTranslationSpeed = 1.0f;
+
+		float m_RotationSpeed = 1.0f;
+		float m_LastMouseX = 0.0f;
+		bool m_FirstMouse = true;
 
 		OrthographicCamera m_Camera;
 	};

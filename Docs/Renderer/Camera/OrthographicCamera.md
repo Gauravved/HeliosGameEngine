@@ -45,6 +45,72 @@ The controller currently utilizes an editor-style movement scheme designed to av
 * **Pan Down:** `RMB` + `S`
 * **Pan Left:** `RMB` + `A`
 * **Pan Right:** `RMB` + `D`
+* 
+* ## 🔍 Zoom
+
+The orthographic camera implements zoom by modifying the size of its
+projection boundaries rather than physically moving the camera.
+
+The controller maintains:
+
+```cpp
+float m_ZoomLevel = 1.0f;
+left   = -m_AspectRatio * m_ZoomLevel;
+right  =  m_AspectRatio * m_ZoomLevel;
+bottom = -m_ZoomLevel;
+top    =  m_ZoomLevel;
+```
+Reducing m_ZoomLevel reduces the visible world-space region and therefore
+makes objects appear larger.
+
+Increasing m_ZoomLevel increases the visible world-space region and therefore
+makes objects appear smaller.
+
+Zoom Level ↓ → Smaller viewing region → Zoom In
+Zoom Level ↑ → Larger viewing region → Zoom Out
+
+Mouse wheel input is handled through MouseScrolledEvent and forwarded through
+the LayerStack to the OrthographicCameraController.
+
+Mouse Scroll
+      ↓
+Application
+      ↓
+LayerStack
+      ↓
+SandboxLayer
+      ↓
+OrthographicCameraController
+      ↓
+Update Zoom Level
+      ↓
+SetProjection()
+      ↓
+Updated Projection Matrix
+
+A minimum zoom level is enforced to prevent the projection bounds from becoming
+invalid.
+
+## 🔄 Camera Rotation
+
+The orthographic camera supports rotation around the Z-axis.
+
+While RMB is held, horizontal mouse movement is converted into a mouse delta:
+
+Current Mouse X - Previous Mouse X
+             ↓
+       Rotation Delta
+             ↓
+      Camera Rotation
+
+The controller tracks the previous mouse position and initializes it when RMB camera control begins to prevent sudden rotation jumps.
+
+The resulting rotation is passed to:
+```cpp
+m_Camera.SetRotation(rotation);
+```
+
+which causes the camera to recalculate its View and View-Projection matrices.
 
 ## ⚙️ Rendering Pipeline Integration
 

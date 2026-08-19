@@ -23,6 +23,7 @@ target_sources(Helios
 
         Source/Renderer/Camera/OrthographicCamera.cpp
         Source/Renderer/Camera/OrthographicCameraController.cpp
+        Source/Renderer/Camera/PerspectiveCamera.cpp
 
         Source/Renderer/OpenGL/OpenGLContext.cpp
         Source/Renderer/OpenGL/OpenGLRendererAPI.cpp
@@ -36,7 +37,7 @@ target_sources(Helios
         Source/Input/MouseButtonCodes.cpp
 
         ../ThirdParty/glad/src/gl.c 
-        ../ThirdParty/glad/src/wgl.c 
+        ../ThirdParty/glad/src/wgl.c
 )
 
 target_include_directories(Helios
