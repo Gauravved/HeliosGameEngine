@@ -33,8 +33,15 @@ namespace Helios {
 		[[nodiscard]] const glm::mat4& GetViewMatrix() const;
 		[[nodiscard]] const glm::mat4& GetViewProjectionMatrix() const;
 
+
+		glm::vec3 GetForwardDirection() const;
+		glm::vec3 GetRightDirection() const;
+		glm::vec3 GetUpDirection() const;
+
 	private:
 		void RecalculateViewMatrix();
+
+		glm::mat4 GetRotationMatrix() const;
 
 	private:
 		float m_FOV;
