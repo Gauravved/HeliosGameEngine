@@ -26,6 +26,8 @@ namespace Helios {
 		// Get camera position
 		glm::vec3 position = m_Camera.GetPosition();
 
+		HL_CORE_INFO("Keyboard Movement detected: {}", movement);
+
 		// Movements
 		// Move relative to the camera's current orientation, not world axes.
 		if (Input::IsKeyPressed(KeyCode::W)) {
@@ -41,7 +43,7 @@ namespace Helios {
 			position += m_Camera.GetRightDirection() * movement;
 		}
 		if (Input::IsKeyPressed(KeyCode::E)) {
-			position += m_Camera.GetUpDirection() * movement;
+			position -= m_Camera.GetUpDirection() * movement;
 		}
 		if (Input::IsKeyPressed(KeyCode::Q)) {
 			position += m_Camera.GetUpDirection() * movement;
@@ -91,12 +93,14 @@ namespace Helios {
 		}
 
 		float deltaX = mouseX - m_LastMouseX;
-		float deltaY = mouseY = m_LastMouseY;
+		float deltaY = mouseY - m_LastMouseY;
 
 		m_LastMouseX = mouseX;
 		m_LastMouseY = mouseY;
 
 		glm::vec3 rotation = m_Camera.GetRotation();
+
+		HL_CORE_INFO("Rotation detected: {} {} {}", rotation.x, rotation.y, rotation.z);
 
 		rotation.y += deltaX * m_MouseSensitivity;
 		rotation.x += deltaY * m_MouseSensitivity;

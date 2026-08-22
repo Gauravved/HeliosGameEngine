@@ -3,7 +3,12 @@
 
 SandboxLayer::SandboxLayer(float aspectRatio)
     : Helios::Layer("Sandbox"), 
-      m_CameraController(aspectRatio)
+      m_CameraController(
+          45.0f,        // FOV
+          aspectRatio,
+          0.1f,         // Near Clip
+          1000.0f       // Far Clip
+      )
 {
 
     /*This is not three points on your monitor.
@@ -36,9 +41,9 @@ SandboxLayer::SandboxLayer(float aspectRatio)
     // These are the same values with with respect to worldf space and 16:9 aspect ratio insted of 1:1 aspect ratio
     float vertices[] = {
         // Position                 // Colors
-        -0.5f, -0.288675f, 0.0f,    1.0f, 0.0f, 0.0f, // Red
-         0.5f, -0.288675f, 0.0f,    0.0f, 1.0f, 0.0f, // Green
-         0.0f,  0.577350f, 0.0f,    0.0f, 0.0f, 1.0f  // Blue
+        -0.5f, -0.288675f, -5.0f,    1.0f, 0.0f, 0.0f, // Red
+         0.5f, -0.288675f, -5.0f,    0.0f, 1.0f, 0.0f, // Green
+         0.0f,  0.577350f, -5.0f,    0.0f, 0.0f, 1.0f  // Blue
     };
 
     // Instead of duplicating vertex data, we reference existing vertices.

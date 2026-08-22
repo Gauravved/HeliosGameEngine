@@ -12,7 +12,8 @@ public:
 	void OnEvent(Helios::Event& event) override;
 
 private:
-	Helios::OrthographicCameraController m_CameraController;
+	// Helios::OrthographicCameraController m_CameraController;
+	Helios::PerspectiveCameraController m_CameraController;
 	std::shared_ptr<Helios::VertexArray> m_VertexArray;
 	std::shared_ptr<Helios::VertexBuffer> m_VertexBuffer;
 	std::shared_ptr<Helios::IndexBuffer> m_IndexBuffer;
