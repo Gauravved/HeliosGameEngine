@@ -24,7 +24,7 @@ target_sources(Helios
         Source/Renderer/Camera/OrthographicCamera.cpp
         Source/Renderer/Camera/OrthographicCameraController.cpp
         Source/Renderer/Camera/PerspectiveCamera.cpp
-        Source/Renderer/Camera/PerspectiveCmaeraController.cpp
+        Source/Renderer/Camera/PerspectiveCameraController.cpp
 
         Source/Renderer/OpenGL/OpenGLContext.cpp
         Source/Renderer/OpenGL/OpenGLRendererAPI.cpp

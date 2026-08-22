@@ -1,11 +1,14 @@
 #pragma once
 
 #include<Helios/Core/TimeStep.h>
-#include<Helios/Events/MouseEvent.h>
-#include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Renderer/Camera/PerspectiveCamera.h>
 
 namespace Helios {
+	class MouseMovedEvent;
+	class MouseScrolledEvent;
+	class WindowResizeEvent;
+	class Event;
+
 	class PerspectiveCameraController {
 	public:
 		explicit PerspectiveCameraController(
@@ -34,6 +37,7 @@ namespace Helios {
 
 		float m_MovementSpeed = 5.0f;
 		float m_MouseSensitivity = 0.1f;
+		float m_ZoomSpeed = 2.0f;
 
 		float m_LastMouseX = 0.0f;
 		float m_LastMouseY = 0.0f;

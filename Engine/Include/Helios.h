@@ -29,3 +29,4 @@
 
 // Cameras
 #include<Helios/Renderer/Camera/OrthographicCameraController.h>
+#include<Helios/Renderer/Camera/PerspectiveCameraController.h>

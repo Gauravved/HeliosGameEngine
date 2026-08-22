@@ -38,6 +38,12 @@ namespace Helios {
 		glm::vec3 GetRightDirection() const;
 		glm::vec3 GetUpDirection() const;
 
+
+		float GetAspectRatio() const { return m_AspectRatio; }
+		float GetFOV() const { return m_FOV; }
+		float GetNearClip() const { return m_NearClip; }
+		float GetFarClip() const { return m_FarClip; }
+
 	private:
 		void RecalculateViewMatrix();
 
