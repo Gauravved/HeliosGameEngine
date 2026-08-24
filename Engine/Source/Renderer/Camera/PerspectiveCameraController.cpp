@@ -102,8 +102,8 @@ namespace Helios {
 
 		HL_CORE_INFO("Rotation detected: {} {} {}", rotation.x, rotation.y, rotation.z);
 
-		rotation.y += deltaX * m_MouseSensitivity;
-		rotation.x += deltaY * m_MouseSensitivity;
+		rotation.y -= deltaX * m_MouseSensitivity;
+		rotation.x -= deltaY * m_MouseSensitivity;
 
 		m_Camera.SetRotation(rotation);
 

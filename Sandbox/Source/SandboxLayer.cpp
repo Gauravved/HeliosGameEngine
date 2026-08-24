@@ -39,18 +39,56 @@ SandboxLayer::SandboxLayer(float aspectRatio)
 	//};
 
     // These are the same values with with respect to worldf space and 16:9 aspect ratio insted of 1:1 aspect ratio
+    //float vertices[] = {
+    //    // Position                 // Colors
+    //    -0.5f, -0.288675f, -5.0f,    1.0f, 0.0f, 0.0f, // Red
+    //     0.5f, -0.288675f, -5.0f,    0.0f, 1.0f, 0.0f, // Green
+    //     0.0f,  0.577350f, -5.0f,    0.0f, 0.0f, 1.0f  // Blue
+    //};
+
+    // CUBE:
     float vertices[] = {
-        // Position                 // Colors
-        -0.5f, -0.288675f, -5.0f,    1.0f, 0.0f, 0.0f, // Red
-         0.5f, -0.288675f, -5.0f,    0.0f, 1.0f, 0.0f, // Green
-         0.0f,  0.577350f, -5.0f,    0.0f, 0.0f, 1.0f  // Blue
+        // Position                  // Color
+
+        // Front face
+        -0.5f, -0.5f, -4.5f,        1.0f, 0.0f, 0.0f,
+         0.5f, -0.5f, -4.5f,        0.0f, 1.0f, 0.0f,
+         0.5f,  0.5f, -4.5f,        0.0f, 0.0f, 1.0f,
+        -0.5f,  0.5f, -4.5f,        1.0f, 1.0f, 0.0f,
+
+        // Back face
+        -0.5f, -0.5f, -5.5f,        1.0f, 0.0f, 1.0f,
+         0.5f, -0.5f, -5.5f,        0.0f, 1.0f, 1.0f,
+         0.5f,  0.5f, -5.5f,        1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f, -5.5f,        0.5f, 0.5f, 0.5f
     };
 
     // Instead of duplicating vertex data, we reference existing vertices.
     Helios::uint32 indices[] = {
-        0, 1, 2
-    };
+        // Front
+        0, 1, 2,
+        2, 3, 0,
 
+        // Right
+        1, 5, 6,
+        6, 2, 1,
+
+        // Back
+        7, 6, 5,
+        5, 4, 7,
+
+        // Left
+        4, 0, 3,
+        3, 7, 4,
+
+        // Top
+        3, 2, 6,
+        6, 7, 3,
+
+        // Bottom
+        4, 5, 1,
+        1, 0, 4
+    };
     // Create Vertex Buffer
     m_VertexBuffer = Helios::VertexBuffer::Create(vertices, sizeof(vertices));
 
