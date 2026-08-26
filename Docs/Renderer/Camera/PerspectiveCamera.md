@@ -162,6 +162,7 @@ Helios::RenderCommand::DrawLines(m_GridVertexArray);
 The grid provides a spatial reference for navigating and testing the 3D scene.
 
 ## 📦 Current 3D Rendering Features
+
 Perspective Camera        ✅
 Mouse Look                ✅
 Keyboard Movement         ✅
