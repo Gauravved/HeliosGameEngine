@@ -23,4 +23,8 @@ namespace Helios {
 	void RenderCommand::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
 		s_RendererAPI->DrawIndexed(vertexArray);
 	}
+
+	void RenderCommand::DrawLines(const std::shared_ptr<VertexArray>& vertexArray) {
+		s_RendererAPI->DrawLines(vertexArray);
+	}
 }

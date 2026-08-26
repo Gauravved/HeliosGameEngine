@@ -14,5 +14,7 @@ namespace Helios {
 		virtual void Clear() override;
 
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+
+		virtual void DrawLines(const std::shared_ptr<VertexArray>& vertexArray) override;
 	};
 }

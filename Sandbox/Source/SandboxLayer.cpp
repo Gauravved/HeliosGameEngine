@@ -119,6 +119,79 @@ SandboxLayer::SandboxLayer(float aspectRatio)
     );
 
 
+
+    // GRID lines
+    std::vector<float> gridVertices;
+    std::vector<Helios::uint32> gridIndices;
+
+    const int gridSize = 50;
+    const float gridSpacing = 1.0f;
+
+    Helios::uint32 vertexIndex = 0;
+
+    // Lines parallel to Z
+    for (int i = -gridSize; i <= gridSize; ++i) {
+        float x = i * gridSpacing;
+
+        // Starting Point
+        gridVertices.push_back(x);
+        gridVertices.push_back(0.0f);
+        gridVertices.push_back(-gridSize * gridSpacing);
+
+        // Ending point
+        gridVertices.push_back(x);
+        gridVertices.push_back(0.0f);
+        gridVertices.push_back(gridSize * gridSpacing);
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+    }
+
+    // Lines parallel to X
+    for (int i = -gridSize; i <= gridSize; ++i) {
+        float z = i * gridSpacing;
+
+        // Starting Point
+        gridVertices.push_back(-gridSize * gridSpacing);
+        gridVertices.push_back(0.0f);
+        gridVertices.push_back(z);
+
+        // Ending point
+        gridVertices.push_back(gridSize * gridSpacing);
+        gridVertices.push_back(0.0f);
+        gridVertices.push_back(z);
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+    }
+
+    m_GridVertexArray = Helios::VertexArray::Create();
+
+    m_GridVertexBuffer = Helios::VertexBuffer::Create(
+        gridVertices.data(),
+        static_cast<Helios::uint32>(gridVertices.size() * sizeof(float))
+    );
+
+    m_GridVertexBuffer->SetLayout({
+        { Helios::ShaderDataType::Float3, "a_Position" }
+    });
+
+    m_GridVertexArray->AddVertexBuffer(m_GridVertexBuffer);
+
+    m_GridIndexBuffer = Helios::IndexBuffer::Create(
+        gridIndices.data(),
+        static_cast<Helios::uint32>(gridIndices.size())
+    );
+
+    m_GridVertexArray->SetIndexBuffer(m_GridIndexBuffer);
+
+    m_GridShader = Helios::Shader::Create(
+        "Assets/Shaders/Grid.vert",
+        "Assets/Shaders/Grid.frag"
+    );
+
 }
 
 SandboxLayer::~SandboxLayer() {
@@ -126,6 +199,21 @@ SandboxLayer::~SandboxLayer() {
 }
 
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
+    //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
+    m_CameraController.OnUpdate(timeStep);
+
+    // Render Grid
+    m_GridShader->Bind();
+
+    // Give the grid shader in current camera matrix
+    m_GridShader->SetMat4(
+        "u_ViewProjection",
+        m_CameraController.GetCamera().GetViewProjectionMatrix()
+    );
+
+    // Draw the indexed Grid
+    Helios::RenderCommand::DrawLines(m_GridVertexArray);
+
     // Cube positions for the world space
     std::vector<glm::vec3> cubePositions = {
         { 0.0f,  0.0f,  -5.0f },
@@ -135,8 +223,6 @@ void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
         { 3.0f,  1.0f, -12.0f }
     };
 
-    //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
-    m_CameraController.OnUpdate(timeStep);
 
     m_Shader->Bind();
 

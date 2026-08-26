@@ -22,6 +22,8 @@ namespace Helios {
 
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) = 0;
 
+		virtual void DrawLines(const std::shared_ptr<VertexArray>& vertexArray) = 0;
+
 		static API GetAPI() {
 			return s_API;
 		}

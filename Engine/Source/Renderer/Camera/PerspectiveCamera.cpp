@@ -14,6 +14,8 @@ namespace Helios {
 		m_FarClip(farClip)
 	{
 		SetProjection(fov, aspectRatio, nearClip, farClip);
+		SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+		SetRotation(glm::vec3(-10.0f, 0.0f, 0.0f));
 	}
 
 	void PerspectiveCamera::SetProjection(float fov, float aspectRatio, float nearClip, float farClip) {

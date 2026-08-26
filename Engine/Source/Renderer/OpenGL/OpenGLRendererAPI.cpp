@@ -67,12 +67,25 @@ namespace Helios{
 		// This tells OpenGL: Use this vertex array configuration for the next draw call.
 		vertexArray->Bind();
 
-		//draw the vertexArray
+		// Draw the vertexArray
 		glDrawElements(
 			GL_TRIANGLES,									// mode. Here it means interpret every 3 indices as triangle
 			vertexArray->GetIndexBuffer()->GetCount(),		// count. The number of indices present 
 			GL_UNSIGNED_INT,								// type. What is the datatype of the indices
 			nullptr											// indices. Start reading indices from the beginning of the currently bound index buffer. If you wanted to start halfway through the buffer, you'd pass an offset instead.
+		);
+	}
+
+	void OpenGLRendererAPI::DrawLines(const std::shared_ptr<VertexArray>& vertexArray) {
+		// Bind the vertex array configuration before drawing.
+		vertexArray->Bind();
+
+		// Each pair of indices represents one independent line
+		glDrawElements(
+			GL_LINES,
+			vertexArray->GetIndexBuffer()->GetCount(),
+			GL_UNSIGNED_INT,
+			nullptr
 		);
 	}
 }
