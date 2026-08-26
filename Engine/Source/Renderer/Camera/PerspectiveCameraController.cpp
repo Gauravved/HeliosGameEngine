@@ -20,7 +20,7 @@ namespace Helios {
 		}
 
 		// Get movement
-		// Movement is frame-rate independent: Speed × Delta Time.
+		// Movement is frame-rate independent: Speed * Delta Time.
 		float movement = m_MovementSpeed * timeStep.GetSeconds();
 
 		// Get camera position

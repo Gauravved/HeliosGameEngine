@@ -180,7 +180,7 @@ Current renderer demonstrates:
 - [x] Event System
 - [x] Input System
 - [x] Time Step
-- [ ] Camera
+- [x] Camera
 - [ ] ImGui Integration
 
 ---
@@ -260,6 +260,18 @@ cmake --build .
 > Screenshots and progress updates will be added as development continues.
 <p align="center">
     <img src="Docs/Images/RGB_triangle.png" width="700" alt="Helios RGB Triangle">
+</p>
+---
+
+> Perspective Camera With camera controls (Zoom, Camera movements, rotation)
+<p align="center">
+    <img src="Docs/Images/Cube_and_Grids.png" width="700" alt="Helios RGB Triangle">
+</p>
+---<p align="center">
+    <img src="Docs/Images/Cube_Rotation_Zoom_out.png" width="700" alt="Helios RGB Triangle">
+</p>
+---<p align="center">
+    <img src="Docs/Images/Cube_Rotation_Zoom_In.png" width="700" alt="Helios RGB Triangle">
 </p>
 ---
 

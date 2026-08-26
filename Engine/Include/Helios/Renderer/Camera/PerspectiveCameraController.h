@@ -35,8 +35,8 @@ namespace Helios {
 	private:
 		PerspectiveCamera m_Camera;
 
-		float m_MovementSpeed = 2.0f;
-		float m_MouseSensitivity = 0.1f;
+		float m_MovementSpeed = 5.0f;
+		float m_MouseSensitivity = 0.5f;
 		float m_ZoomSpeed = 2.0f;
 
 		float m_LastMouseX = 0.0f;
