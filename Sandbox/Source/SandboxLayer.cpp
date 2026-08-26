@@ -46,21 +46,21 @@ SandboxLayer::SandboxLayer(float aspectRatio)
     //     0.0f,  0.577350f, -5.0f,    0.0f, 0.0f, 1.0f  // Blue
     //};
 
-    // CUBE:
+    // CUBE: LOCAL space 
     float vertices[] = {
         // Position                  // Color
 
         // Front face
-        -0.5f, -0.5f, -4.5f,        1.0f, 0.0f, 0.0f,
-         0.5f, -0.5f, -4.5f,        0.0f, 1.0f, 0.0f,
-         0.5f,  0.5f, -4.5f,        0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f, -4.5f,        1.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,        1.0f, 0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,        0.0f, 1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,        0.0f, 0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,        1.0f, 1.0f, 0.0f,
 
         // Back face
-        -0.5f, -0.5f, -5.5f,        1.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, -5.5f,        0.0f, 1.0f, 1.0f,
-         0.5f,  0.5f, -5.5f,        1.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f, -5.5f,        0.5f, 0.5f, 0.5f
+        -0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,        0.0f, 1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,        1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,        0.5f, 0.5f, 0.5f
     };
 
     // Instead of duplicating vertex data, we reference existing vertices.
@@ -89,6 +89,7 @@ SandboxLayer::SandboxLayer(float aspectRatio)
         4, 5, 1,
         1, 0, 4
     };
+
     // Create Vertex Buffer
     m_VertexBuffer = Helios::VertexBuffer::Create(vertices, sizeof(vertices));
 
@@ -125,6 +126,14 @@ SandboxLayer::~SandboxLayer() {
 }
 
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
+    // Cube positions for the world space
+    std::vector<glm::vec3> cubePositions = {
+        { 0.0f,  0.0f,  -5.0f },
+        { 5.0f,  0.0f,  -5.0f },
+        { 0.0f,  2.0f,  -8.0f },
+        {-3.0f, -1.0f, -10.0f },
+        { 3.0f,  1.0f, -12.0f }
+    };
 
     //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
     m_CameraController.OnUpdate(timeStep);
@@ -134,7 +143,18 @@ void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
     // SetCamera ViewProjection in Shader
     m_Shader->SetMat4("u_ViewProjection", m_CameraController.GetCamera().GetViewProjectionMatrix());
 
-    Helios::RenderCommand::DrawIndexed(m_VertexArray);
+    // Identity model matrix = object stays at it's original position
+    glm::mat4 model{ 1.0f };
+    for (const auto position : cubePositions) {
+        model = glm::translate(
+            glm::mat4(1.0f),
+            position
+        );
+
+        m_Shader->SetMat4("u_Model", model);
+        Helios::RenderCommand::DrawIndexed(m_VertexArray);
+    }
+
 }
 
 void SandboxLayer::OnEvent(Helios::Event& event) {

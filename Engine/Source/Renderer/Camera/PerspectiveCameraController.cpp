@@ -43,10 +43,10 @@ namespace Helios {
 			position += m_Camera.GetRightDirection() * movement;
 		}
 		if (Input::IsKeyPressed(KeyCode::E)) {
-			position -= m_Camera.GetUpDirection() * movement;
+			position += m_Camera.GetUpDirection() * movement;
 		}
 		if (Input::IsKeyPressed(KeyCode::Q)) {
-			position += m_Camera.GetUpDirection() * movement;
+			position -= m_Camera.GetUpDirection() * movement;
 		}
 
 		m_Camera.SetPosition(position);
