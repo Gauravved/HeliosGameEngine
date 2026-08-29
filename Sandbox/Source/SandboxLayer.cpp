@@ -128,6 +128,7 @@ SandboxLayer::SandboxLayer(float aspectRatio)
     const float gridSpacing = 1.0f;
 
     Helios::uint32 vertexIndex = 0;
+    const glm::vec3 gridColor(0.35f, 0.35f, 0.35f);
 
     // Lines parallel to Z
     for (int i = -gridSize; i <= gridSize; ++i) {
@@ -138,10 +139,45 @@ SandboxLayer::SandboxLayer(float aspectRatio)
         gridVertices.push_back(0.0f);
         gridVertices.push_back(-gridSize * gridSpacing);
 
+        gridVertices.push_back(gridColor.r);
+        gridVertices.push_back(gridColor.g);
+        gridVertices.push_back(gridColor.b);
+
         // Ending point
         gridVertices.push_back(x);
         gridVertices.push_back(0.0f);
         gridVertices.push_back(gridSize * gridSpacing);
+
+        gridVertices.push_back(gridColor.r);
+        gridVertices.push_back(gridColor.g);
+        gridVertices.push_back(gridColor.b);
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // X axis
+        gridVertices.insert(gridVertices.end(), {
+            -50.0f, 0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+             50.0f, 0.0f, 0.0f,   1.0f, 0.0f, 0.0f
+            });
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // Y axis
+        gridVertices.insert(gridVertices.end(), {
+            0.0f, -50.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+            0.0f,  50.0f, 0.0f,   0.0f, 1.0f, 0.0f
+            });
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // Z axis
+        gridVertices.insert(gridVertices.end(), {
+            0.0f, 0.0f, -50.0f,   0.0f, 0.0f, 1.0f,
+            0.0f, 0.0f,  50.0f,   0.0f, 0.0f, 1.0f
+            });
 
         gridIndices.push_back(vertexIndex++);
         gridIndices.push_back(vertexIndex++);
@@ -157,10 +193,45 @@ SandboxLayer::SandboxLayer(float aspectRatio)
         gridVertices.push_back(0.0f);
         gridVertices.push_back(z);
 
+        gridVertices.push_back(gridColor.r);
+        gridVertices.push_back(gridColor.g);
+        gridVertices.push_back(gridColor.b);
+
         // Ending point
         gridVertices.push_back(gridSize * gridSpacing);
         gridVertices.push_back(0.0f);
         gridVertices.push_back(z);
+
+        gridVertices.push_back(gridColor.r);
+        gridVertices.push_back(gridColor.g);
+        gridVertices.push_back(gridColor.b);
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // X axis
+        gridVertices.insert(gridVertices.end(), {
+            -50.0f, 0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+             50.0f, 0.0f, 0.0f,   1.0f, 0.0f, 0.0f
+            });
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // Y axis
+        gridVertices.insert(gridVertices.end(), {
+            0.0f, -50.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+            0.0f,  50.0f, 0.0f,   0.0f, 1.0f, 0.0f
+            });
+
+        gridIndices.push_back(vertexIndex++);
+        gridIndices.push_back(vertexIndex++);
+
+        // Z axis
+        gridVertices.insert(gridVertices.end(), {
+            0.0f, 0.0f, -50.0f,   0.0f, 0.0f, 1.0f,
+            0.0f, 0.0f,  50.0f,   0.0f, 0.0f, 1.0f
+            });
 
         gridIndices.push_back(vertexIndex++);
         gridIndices.push_back(vertexIndex++);
@@ -175,7 +246,8 @@ SandboxLayer::SandboxLayer(float aspectRatio)
     );
 
     m_GridVertexBuffer->SetLayout({
-        { Helios::ShaderDataType::Float3, "a_Position" }
+        { Helios::ShaderDataType::Float3, "a_Position" },
+        { Helios::ShaderDataType::Float3, "a_Color" }
     });
 
     m_GridVertexArray->AddVertexBuffer(m_GridVertexBuffer);
