@@ -90,6 +90,44 @@ SandboxLayer::SandboxLayer(float aspectRatio)
         1, 0, 4
     };
 
+    // CUBE: borders local space
+    float cubeBorderVertices[] = {
+        // Position                 // Color
+
+        // Front face corners
+        -0.5f, -0.5f,  0.5f,        1.0f, 1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,        1.0f, 1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,        1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,        1.0f, 1.0f, 1.0f,
+
+        // Back face corners
+        -0.5f, -0.5f, -0.5f,        1.0f, 1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,        1.0f, 1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,        1.0f, 1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,        1.0f, 1.0f, 1.0f
+    };
+
+    // INDICES for borders
+    Helios::uint32 cubeBorderIndices[] = {
+        // Front face
+        0, 1,
+        1, 2,
+        2, 3,
+        3, 0,
+
+        // Back face
+        4, 5,
+        5, 6,
+        6, 7,
+        7, 4,
+
+        // Connect front and back
+        0, 4,
+        1, 5,
+        2, 6,
+        3, 7
+    };
+
     // Create Vertex Buffer
     m_VertexBuffer = Helios::VertexBuffer::Create(vertices, sizeof(vertices));
 
@@ -118,6 +156,16 @@ SandboxLayer::SandboxLayer(float aspectRatio)
         "Assets/Shaders/Basic.frag"
     );
 
+    m_BorderVertexArray = Helios::VertexArray::Create();
+    m_BorderVertexBuffer = Helios::VertexBuffer::Create(cubeBorderVertices, sizeof(cubeBorderVertices));
+    m_BorderIndexBuffer = Helios::IndexBuffer::Create(cubeBorderIndices, sizeof(cubeBorderIndices) / sizeof(Helios::uint32));
+    m_BorderVertexBuffer->SetLayout({
+        {Helios::ShaderDataType::Float3, "a_Position"},
+        {Helios::ShaderDataType::Float3, "a_Color"}
+        });
+    
+    m_BorderVertexArray->SetIndexBuffer(m_BorderIndexBuffer);
+    m_BorderVertexArray->AddVertexBuffer(m_BorderVertexBuffer);
 
 
     // GRID lines
@@ -274,43 +322,56 @@ void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
     //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
     m_CameraController.OnUpdate(timeStep);
 
+    glm::mat4 viewProjection = m_CameraController.GetCamera().GetViewProjectionMatrix();
+
+    // ==========================================
+    // Grid & World Axes
+    // ==========================================
     // Render Grid
     m_GridShader->Bind();
 
     // Give the grid shader in current camera matrix
     m_GridShader->SetMat4(
         "u_ViewProjection",
-        m_CameraController.GetCamera().GetViewProjectionMatrix()
+        viewProjection
+    );
+
+    m_GridShader->SetMat4(
+        "u_Model",
+        glm::mat4(1.0f)
     );
 
     // Draw the indexed Grid
     Helios::RenderCommand::DrawLines(m_GridVertexArray);
 
-    // Cube positions for the world space
-    std::vector<glm::vec3> cubePositions = {
-        { 0.0f,  0.0f,  -5.0f },
-        { 5.0f,  0.0f,  -5.0f },
-        { 0.0f,  2.0f,  -8.0f },
-        {-3.0f, -1.0f, -10.0f },
-        { 3.0f,  1.0f, -12.0f }
-    };
-
-
+    // ========================================
+    // Cube
+    // ========================================
     m_Shader->Bind();
 
     // SetCamera ViewProjection in Shader
-    m_Shader->SetMat4("u_ViewProjection", m_CameraController.GetCamera().GetViewProjectionMatrix());
+    m_Shader->SetMat4("u_ViewProjection", viewProjection);
 
     // Identity model matrix = object stays at it's original position
-    glm::mat4 model{ 1.0f };
-    for (const auto position : cubePositions) {
-        model = glm::translate(
+    for (const auto position : m_CubePositions) {
+        glm::mat4 model = glm::translate(
             glm::mat4(1.0f),
             position
         );
 
         m_Shader->SetMat4("u_Model", model);
         Helios::RenderCommand::DrawIndexed(m_VertexArray);
+    }
+
+    // =========================================
+    // Border Cubes
+    // =========================================
+    m_GridShader->Bind();
+    m_GridShader->SetMat4("u_ViewProjection", viewProjection);
+    for (const auto position : m_CubePositions) {
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+        m_GridShader->SetMat4("u_Model", model);
+        Helios::RenderCommand::DrawLines(m_BorderVertexArray);
     }
 
 }
