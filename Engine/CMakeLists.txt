@@ -39,6 +39,17 @@ target_sources(Helios
 
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c 
+
+        # Dear ImGui
+        ../ThirdParty/imgui/imgui.cpp
+        ../ThirdParty/imgui/imgui_draw.cpp
+        ../ThirdParty/imgui/imgui_tables.cpp
+        ../ThirdParty/imgui/imgui_widgets.cpp
+        ../ThirdParty/imgui/imgui_demo.cpp
+
+        # ImGui platform/rendering backends
+        ../ThirdParty/imgui/backends/imgui_impl_win32.cpp
+        ../ThirdParty/imgui/backends/imgui_impl_opengl3.cpp
 )
 
 target_include_directories(Helios
@@ -47,6 +58,8 @@ target_include_directories(Helios
         ../ThirdParty/glad/include
         ../ThirdParty/spdlog
         ../ThirdParty/glm
+        ../ThirdParty/imgui
+        ../ThirdParty/imgui/backends
 )
 target_link_libraries(Helios
     PRIVATE
