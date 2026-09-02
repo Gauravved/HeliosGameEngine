@@ -37,6 +37,9 @@ target_sources(Helios
         Source/Input/KeyCodes.cpp
         Source/Input/MouseButtonCodes.cpp
 
+        # GUI Layer
+        Source/ImGui/ImGuiLayer.cpp
+
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c 
 

@@ -50,6 +50,14 @@ namespace Helios {
 			m_Window->GetWidth(),
 			m_Window->GetHeight()
 		);
+
+		// Initializing ImGuiLayer 
+		m_ImGuiLayer = std::make_shared<ImGuiLayer>(m_Window->GetNativeWindow());
+
+		// Add ImGuiLayer as overlay
+		// Overlays are reserved for systems like ImGui, debugging, and profiling that should always sit above normal gameplay/scene layers and receive events first.
+		PushOverlay(m_ImGuiLayer);
+
 		while (m_Running) {
 			auto now = Clock::now();
 

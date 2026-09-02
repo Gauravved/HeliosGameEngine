@@ -7,6 +7,8 @@
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
 #include<Helios/Events/MouseEvent.h>
+// GUI Layer
+#include<Helios/ImGui/ImGuiLayer.h>
 
 // defining application namespace 
 namespace Helios{
@@ -39,5 +41,9 @@ namespace Helios{
 		std::unique_ptr<Helios::Window> m_Window;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
+
+		// ImGuiLayer pointer
+		std::shared_ptr<ImGuiLayer> m_ImGuiLayer;
+
 	};
 }
