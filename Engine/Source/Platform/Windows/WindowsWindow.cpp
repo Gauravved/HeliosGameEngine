@@ -2,6 +2,9 @@
 // To use GET_X_LPARAM
 #include<windowsx.h>
 
+// In order to pass WindowProc messages to ImGui before converting them to Helios Specific messages
+#include<backends/imgui_impl_win32.h>
+
 //#include<Helios/Core/Log.h>
 #include <Helios/Platform/Windows/WindowsWindow.h>
 #include<Helios/Platform/Windows/WindowsKeyMap.h>
@@ -9,6 +12,14 @@
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>
 #include<Helios/Events/MouseEvent.h>
+ 
+// WinProc to pass WindowProc Messages to ImGui
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(
+	HWND hwnd,
+	UINT message,
+	WPARAM wParam,
+	LPARAM lParam
+);
 
 namespace Helios {
 	Window* Window::Create(const WindowProperties& properties) {
@@ -29,6 +40,9 @@ namespace Helios {
 
 	// WindowProc definition
 	LRESULT CALLBACK WindowsWindow::WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+		// Passing the message to ImGui
+		ImGui_ImplWin32_WndProcHandler(hwnd, message, wParam, lParam);
+
 		// Retieving the "this" object from the lparam
 		// WM_NCCREATE is the very first message Windows sends when a window is being created.
 		// First message sent during window creation; used to associate our C++ object with the HWND.

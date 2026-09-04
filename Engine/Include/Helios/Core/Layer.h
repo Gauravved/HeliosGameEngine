@@ -3,9 +3,10 @@
 #include<string>
 
 #include<Helios/Core/TimeStep.h>
+#include<Helios/Events/MouseEvent.h>
+#include<Helios/Events/KeyEvent.h>
 
 namespace Helios {
-	class Event;
 	class Layer {
 	public:
 		explicit Layer(const std::string& name = "Layer");

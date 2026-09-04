@@ -6,7 +6,7 @@ namespace Helios {
 	class ImGuiLayer :public Layer {
 	public:
 		explicit ImGuiLayer(void* nativeWindow);
-		~ImGuiLayer() override = default;
+		~ImGuiLayer() override;
 
 		void OnAttach() override;
 		void OnDetach() override;

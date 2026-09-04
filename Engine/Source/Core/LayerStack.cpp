@@ -1,12 +1,20 @@
 #include<algorithm>
 
 #include<Helios/Core/LayerStack.h>
+#include<Helios/Core/Log.h>
 
 namespace Helios {
 
 	LayerStack::LayerStack() = default;
 
-	LayerStack::~LayerStack() = default;
+	LayerStack::~LayerStack() {
+		// Destroy the Layers in reverse of how they are created
+		for (auto it = m_Layers.rbegin(); it != m_Layers.rend(); ++it) {
+			(*it)->OnDetach();
+		}
+		HL_CORE_INFO("All Layers Detached");
+		HL_CORE_INFO("LayerStack Destroyed");
+	}
 
 	void LayerStack::PushLayer(const std::shared_ptr<Layer>& layer) {
 		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);

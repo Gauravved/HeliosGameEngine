@@ -315,7 +315,7 @@ SandboxLayer::SandboxLayer(float aspectRatio)
 }
 
 SandboxLayer::~SandboxLayer() {
-
+    HL_INFO("SandboxLayer Destroyed");
 }
 
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
