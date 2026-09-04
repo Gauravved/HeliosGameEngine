@@ -104,45 +104,45 @@ namespace Helios {
 		);
 
 		// Calling dispatcher for KeyPressedEvent
-		dispatcher.Dispatch<KeyPressedEvent>(
-			[this](KeyPressedEvent& e) {
-				return OnKeyPressed(e);
-			}
-		);
+		//dispatcher.Dispatch<KeyPressedEvent>(
+		//	[this](KeyPressedEvent& e) {
+		//		return OnKeyPressed(e);
+		//	}
+		//);
 
-		// Calling dispatcher for KeyReleasedEvent
-		dispatcher.Dispatch<KeyReleasedEvent>(
-			[this](KeyReleasedEvent& e) {
-				return OnKeyReleased(e);
-			}
-		);
+		//// Calling dispatcher for KeyReleasedEvent
+		//dispatcher.Dispatch<KeyReleasedEvent>(
+		//	[this](KeyReleasedEvent& e) {
+		//		return OnKeyReleased(e);
+		//	}
+		//);
 
-		// Calling dispatcher for MouseMovedEvent
-		dispatcher.Dispatch<MouseMovedEvent>(
-			[this](MouseMovedEvent& e) {
-				return OnMouseMoved(e);
-			}
-		);
+		//// Calling dispatcher for MouseMovedEvent
+		//dispatcher.Dispatch<MouseMovedEvent>(
+		//	[this](MouseMovedEvent& e) {
+		//		return OnMouseMoved(e);
+		//	}
+		//);
 
-		// Calling dispatcher for MouseScrolledEvent
-		dispatcher.Dispatch<MouseScrolledEvent>(
-			[this](MouseScrolledEvent& e) {
-				return OnMouseScrolled(e);
-			}
-		);
+		//// Calling dispatcher for MouseScrolledEvent
+		//dispatcher.Dispatch<MouseScrolledEvent>(
+		//	[this](MouseScrolledEvent& e) {
+		//		return OnMouseScrolled(e);
+		//	}
+		//);
 
-		// Calling dispatcher for MouseButtonPressed and MouseButtonReleased Events
-		dispatcher.Dispatch<MouseButtonPressedEvent>(
-			[this](MouseButtonPressedEvent& e) {
-				return OnMouseButtonPressed(e);
-			}
-		);
+		//// Calling dispatcher for MouseButtonPressed and MouseButtonReleased Events
+		//dispatcher.Dispatch<MouseButtonPressedEvent>(
+		//	[this](MouseButtonPressedEvent& e) {
+		//		return OnMouseButtonPressed(e);
+		//	}
+		//);
 
-		dispatcher.Dispatch<MouseButtonReleasedEvent>(
-			[this](MouseButtonReleasedEvent& e) {
-				return OnMouseButtonReleased(e);
-			}
-		);
+		//dispatcher.Dispatch<MouseButtonReleasedEvent>(
+		//	[this](MouseButtonReleasedEvent& e) {
+		//		return OnMouseButtonReleased(e);
+		//	}
+		//);
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
 			if (event.Handled) {
@@ -166,35 +166,35 @@ namespace Helios {
 		return false;
 	}
 
-	bool Application::OnKeyPressed(KeyPressedEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnKeyPressed(KeyPressedEvent& event) {
+	//	HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
-	bool Application::OnKeyReleased(KeyReleasedEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnKeyReleased(KeyReleasedEvent& event) {
+	//	HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
-	bool Application::OnMouseMoved(MouseMovedEvent& event) {
-		//HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnMouseMoved(MouseMovedEvent& event) {
+	//	//HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
-	bool Application::OnMouseScrolled(MouseScrolledEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnMouseScrolled(MouseScrolledEvent& event) {
+	//	HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
-	bool Application::OnMouseButtonPressed(MouseButtonPressedEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnMouseButtonPressed(MouseButtonPressedEvent& event) {
+	//	HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
-	bool Application::OnMouseButtonReleased(MouseButtonReleasedEvent& event) {
-		HL_CORE_INFO("{}", event.ToString());
-		return false;
-	}
+	//bool Application::OnMouseButtonReleased(MouseButtonReleasedEvent& event) {
+	//	HL_CORE_INFO("{}", event.ToString());
+	//	return false;
+	//}
 
 	Application::~Application() = default;
 }
