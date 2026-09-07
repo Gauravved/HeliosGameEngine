@@ -4,6 +4,7 @@
 
 #include<Helios/ImGui/ImGuiLayer.h>
 #include<Helios/Core/Log.h>
+#include<Helios/Input/Input.h>
 
 namespace Helios {
 
@@ -77,6 +78,16 @@ namespace Helios {
 		// Generate ImGui draw commands and submit them through OpenGL
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		Input::SetKeyboardCapture(ImGui::IsAnyItemActive());
+		Input::SetMouseCaptured(ImGui::GetIO().WantCaptureMouse);
+		HL_CORE_INFO(
+			"MouseCapture: {} | KeyboardCapture: {} | AnyItemActive: {} | AnyItemFocused: {}",
+			ImGui::GetIO().WantCaptureMouse,
+			ImGui::GetIO().WantCaptureKeyboard,
+			ImGui::IsAnyItemActive(),
+			ImGui::IsAnyItemFocused()
+		);
 	}
 
 	void ImGuiLayer::OnEvent(Event& event) {
