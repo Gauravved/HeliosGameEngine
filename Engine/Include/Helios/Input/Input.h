@@ -9,9 +9,19 @@ namespace Helios {
 	class Input {
 	public:
 		static bool IsKeyPressed(KeyCode keyCode) {
+			// If the keyboard input is only captured return false always
+			if (s_KeyboardCapture) {
+				return false;
+			}
+
 			return s_Instance->IsKeyPressedImpl(keyCode);
 		}
 		static bool IsMouseButtonPressed(MouseButton button) {
+			// If mouse input is already captured return false always
+			if (s_MouseCapture) {
+				return false;
+			}
+
 			return s_Instance->IsMouseButtonPressedImpl(button);
 		}
 		static float GetMouseX() {
@@ -19,6 +29,13 @@ namespace Helios {
 		}
 		static float GetMouseY() {
 			return s_Instance->GetMouseYImpl();
+		}
+
+		static void SetKeyboardCapture(bool captured) {
+			s_KeyboardCapture = captured;
+		}
+		static void SetMouseCaptured(bool captured) {
+			s_MouseCapture = captured;
 		}
 
 	protected:
@@ -29,8 +46,10 @@ namespace Helios {
 
 	private:
 		static std::unique_ptr<Input> s_Instance;
+		static bool s_KeyboardCapture;
+		static bool s_MouseCapture;
 
-		protected:
+	protected:
 			static void SetInstance(std::unique_ptr<Input> instance);
 
 			friend class WindowsPlatform;
