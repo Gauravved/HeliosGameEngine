@@ -21,6 +21,8 @@ target_sources(Helios
         Source/Renderer/Buffer/IndexBuffer.cpp 
         Source/Renderer/Buffer/VertexArray.cpp
 
+        Source/Renderer/FrameBuffer/FrameBuffer.cpp
+
         Source/Renderer/Camera/OrthographicCamera.cpp
         Source/Renderer/Camera/OrthographicCameraController.cpp
         Source/Renderer/Camera/PerspectiveCamera.cpp
@@ -53,7 +55,7 @@ target_sources(Helios
         # ImGui platform/rendering backends
         ../ThirdParty/imgui/backends/imgui_impl_win32.cpp
         ../ThirdParty/imgui/backends/imgui_impl_opengl3.cpp
-)
+ "Source/Renderer/OpenGL/OpenGLFrameBuffer.cpp")
 
 target_include_directories(Helios
     PUBLIC
