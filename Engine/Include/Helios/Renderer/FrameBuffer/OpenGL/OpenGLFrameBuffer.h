@@ -19,6 +19,7 @@ namespace Helios {
 
 	private:
 		void Invalidate();
+		void DeleteGPUResources();
 
 	private:
 		uint32 m_Width = 0;
