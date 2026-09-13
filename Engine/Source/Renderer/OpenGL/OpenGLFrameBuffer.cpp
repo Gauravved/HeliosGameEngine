@@ -16,6 +16,24 @@ namespace Helios {
 		Invalidate();
 	}
 
+	OpenGLFrameBuffer::~OpenGLFrameBuffer() {
+		HL_CORE_INFO("OpenGL FrameBuffer destroyed: {}",m_RendererID);
+		DeleteGPUResources();
+	}
+
+	void OpenGLFrameBuffer::DeleteGPUResources() {
+
+		// Delete the framebuffer and its attachments when the object is destroyed.
+		// These are GPU resources and must be explicitly released through OpenGL.
+		glDeleteFramebuffers(1, &m_RendererID);
+		glDeleteTextures(1, &m_ColorAttachment);
+		glDeleteRenderbuffers(1, &m_DepthAttachment);
+
+		m_RendererID = 0;
+		m_ColorAttachment = 0;
+		m_DepthAttachment = 0;
+	}
+
 	// Build/Create the frambuffer and add the attachments
 	void OpenGLFrameBuffer::Invalidate() {
 		// Generate and Bind FrameBuffers
@@ -148,6 +166,43 @@ namespace Helios {
 		// leave our off-screen framebuffer bound for unrelated rendering.
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	}
+
+	void OpenGLFrameBuffer::Bind() {
+
+		// Make this framebuffer the current render target.
+		// All subsequent rendering commands will write to its attachments
+		// instead of the default window framebuffer.
+		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+
+
+		// Update the viewport to match the framebuffer dimensions.
+		// The viewport determines the area of the framebuffer that OpenGL
+		// maps normalized device coordinates into.
+		glViewport(
+			0,
+			0,
+			static_cast<GLsizei>(m_Width),
+			static_cast<GLsizei>(m_Height)
+		);
+	}
+
+	void OpenGLFrameBuffer::Unbind() {
+
+		// Restore the default window framebuffer as the current render target.
+		// Subsequent rendering commands will once again target the application window.
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	uint32 OpenGLFrameBuffer::GetColorAttachmentRendererID() const {
+		return m_ColorAttachment;
+	}
+
+	void OpenGLFrameBuffer::Resize(uint32 width, uint32 height) {
+		DeleteGPUResources();
+		m_Width = width;
+		m_Height = height;
+		Invalidate();
 	}
 
 }
