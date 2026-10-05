@@ -4,16 +4,21 @@
 
 class SandboxLayer : public Helios::Layer {
 public:
-	explicit SandboxLayer(float aspectRatio);
+	explicit SandboxLayer(float aspectRatio, Helios::uint32 width, Helios::uint32 height);
 	~SandboxLayer();
 
 
 	void OnUpdate(Helios::TimeStep timeStep) override;
 	void OnEvent(Helios::Event& event) override;
 
+	const std::shared_ptr<Helios::FrameBuffer>& GetFrameBuffer() const { return m_FrameBuffer; }
+
 private:
 	// Helios::OrthographicCameraController m_CameraController;
 	Helios::PerspectiveCameraController m_CameraController;
+
+	std::shared_ptr<Helios::FrameBuffer> m_FrameBuffer;
+
 	std::shared_ptr<Helios::VertexArray> m_VertexArray;
 	std::shared_ptr<Helios::VertexBuffer> m_VertexBuffer;
 	std::shared_ptr<Helios::IndexBuffer> m_IndexBuffer;

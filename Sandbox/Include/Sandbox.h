@@ -6,7 +6,8 @@
 class Sandbox : public Helios::Application {
 public:
 	Sandbox() {
-		float aspectRatio = static_cast<float>(GetWindow().GetWidth()) / static_cast<float>(GetWindow().GetHeight());
-		PushLayer(std::make_shared<SandboxLayer>(aspectRatio));
+		float aspectRatio = static_cast<float>(GetWindow().GetWidth()) / static_cast<float>(GetWindow().GetHeight()); 
+		auto sandboxLayer = std::make_shared<SandboxLayer>(aspectRatio, GetWindow().GetWidth(), GetWindow().GetHeight());
+		PushLayer(sandboxLayer);
 	}
 };
