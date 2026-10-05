@@ -295,10 +295,10 @@ namespace Helios {
 		m_GraphicsContext->SwapBuffer();
 	}
 
-	uint32_t WindowsWindow::GetWidth() const {
+	uint32 WindowsWindow::GetWidth() const {
 		return m_Data.m_Width;
 	}
-	uint32_t WindowsWindow::GetHeight() const {
+	uint32 WindowsWindow::GetHeight() const {
 		return m_Data.m_Height;
 	}
 	

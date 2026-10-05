@@ -1,14 +1,15 @@
 #include<SandboxLayer.h>
 
 
-SandboxLayer::SandboxLayer(float aspectRatio)
+SandboxLayer::SandboxLayer(float aspectRatio, Helios::uint32 width, Helios::uint32 height)
     : Helios::Layer("Sandbox"), 
       m_CameraController(
           45.0f,        // FOV
           aspectRatio,
           0.1f,         // Near Clip
           1000.0f       // Far Clip
-      )
+      ),
+      m_FrameBuffer(Helios::FrameBuffer::Create(width,height))
 {
 
     /*This is not three points on your monitor.
@@ -319,6 +320,14 @@ SandboxLayer::~SandboxLayer() {
 }
 
 void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
+    // Bind the scene framebuffer so all rendering commands target
+    // the off-screen framebuffer instead of the application window.
+    m_FrameBuffer->Bind();
+
+    // Clear the framebuffer before rendering the scene.
+    // This clears both the color and depth attachments.
+    Helios::RenderCommand::Clear();
+
     //HL_INFO("Delta Time: {} ms", timeStep.GetMilliSeconds());
     m_CameraController.OnUpdate(timeStep);
 
@@ -373,6 +382,9 @@ void SandboxLayer::OnUpdate(Helios::TimeStep timeStep) {
         m_GridShader->SetMat4("u_Model", model);
         Helios::RenderCommand::DrawLines(m_BorderVertexArray);
     }
+    // Restore the default window framebuffer after the scene has finished
+    // rendering into the off-screen framebuffer.
+    m_FrameBuffer->Unbind();
 
 }
 
