@@ -1,7 +1,7 @@
 ﻿# Helios Engine
 
 <p align="center">
-  <img src="Docs/Images/HeliosBanner.png" alt="Helios Engine Banner" width="800"/>
+  <img src="Docs/Images/Helios_Banner.png" alt="Helios Engine Banner" width="800"/>
 </p>
 
 <p align="center">
