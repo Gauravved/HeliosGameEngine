@@ -25,6 +25,9 @@
 // FrameBuffer
 #include<Helios/Renderer/FrameBuffer/OpenGL/OpenGLFrameBuffer.h>
 
+// SceneRenderer
+#include<Helios/Renderer/SceneRenderer/SceneRenderer.h>
+
 // Events
 #include<Helios/Events/ApplicationEvent.h>
 #include<Helios/Events/KeyEvent.h>

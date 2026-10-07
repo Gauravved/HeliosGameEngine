@@ -8,10 +8,9 @@
 
 namespace Helios {
 
-	ImGuiLayer::ImGuiLayer(void* nativeWindow, const std::shared_ptr<FrameBuffer>& frameBuffer) 
+	ImGuiLayer::ImGuiLayer(void* nativeWindow) 
 		: Layer("ImGui"),
-		m_NativeWindow(nativeWindow),
-		m_FrameBuffer(frameBuffer)
+		m_NativeWindow(nativeWindow)
 	{}
 	ImGuiLayer::~ImGuiLayer() {
 		HL_CORE_INFO("ImGuiLayer (Overlay) Destroyed");
