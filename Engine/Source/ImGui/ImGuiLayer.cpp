@@ -43,65 +43,89 @@ namespace Helios {
 		HL_CORE_INFO("ImGui Layer (Overlay) Detached");
 	}
 
-	void ImGuiLayer::OnUpdate(TimeStep timstep) {
-		// Start a new ImGui frame for this engine frame.
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
+	//void ImGuiLayer::OnUpdate(TimeStep timstep) {
+	//	// Start a new ImGui frame for this engine frame.
+	//	ImGui_ImplOpenGL3_NewFrame();
+	//	ImGui_ImplWin32_NewFrame();
+	//	ImGui::NewFrame();
 
-		// Create a simple test window to verify ImGui integration.
-		/*ImGui::Begin("Helios Editor");
+	//	// Create a simple test window to verify ImGui integration.
+	//	/*ImGui::Begin("Helios Editor");
 
-		ImGui::Text("Hello from Helios!");
+	//	ImGui::Text("Hello from Helios!");
 
-		static bool showDemo = false;
+	//	static bool showDemo = false;
 
-		if (ImGui::Button("Open ImGui Demo")) {
-			showDemo = true;
-		}
+	//	if (ImGui::Button("Open ImGui Demo")) {
+	//		showDemo = true;
+	//	}
 
-		if (showDemo) {
-			ImGui::ShowDemoWindow(&showDemo);
-		}
+	//	if (showDemo) {
+	//		ImGui::ShowDemoWindow(&showDemo);
+	//	}
 
-		ImGui::End();*/
+	//	ImGui::End();*/
 
-		ImGui::SetNextWindowSize(ImVec2(500.0f, 300.0f));
+	//	ImGui::SetNextWindowSize(ImVec2(500.0f, 300.0f));
 
-		ImGui::Begin("Helios Editor");
+	//	ImGui::Begin("Helios Editor");
 
-		ImGui::Text("Hello from Helios!");
+	//	ImGui::Text("Hello from Helios!");
 
-		static char textBuffer[256] = "";
+	//	static char textBuffer[256] = "";
 
-		ImGui::InputText("Test Input", textBuffer, sizeof(textBuffer));
+	//	ImGui::InputText("Test Input", textBuffer, sizeof(textBuffer));
 
-		ImGui::End();
+	//	ImGui::End();
 
-		// Generate ImGui draw commands and submit them through OpenGL
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	//	// Generate ImGui draw commands and submit them through OpenGL
+	//	ImGui::Render();
+	//	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-		Input::SetKeyboardCapture(ImGui::IsAnyItemActive());
-		Input::SetMouseCaptured(ImGui::GetIO().WantCaptureMouse);
-		HL_CORE_INFO(
-			"MouseCapture: {} | KeyboardCapture: {} | AnyItemActive: {} | AnyItemFocused: {}",
-			ImGui::GetIO().WantCaptureMouse,
-			ImGui::GetIO().WantCaptureKeyboard,
-			ImGui::IsAnyItemActive(),
-			ImGui::IsAnyItemFocused()
-		);
+	//	Input::SetKeyboardCapture(ImGui::IsAnyItemActive());
+	//	Input::SetMouseCaptured(ImGui::GetIO().WantCaptureMouse);
+	//	HL_CORE_INFO(
+	//		"MouseCapture: {} | KeyboardCapture: {} | AnyItemActive: {} | AnyItemFocused: {}",
+	//		ImGui::GetIO().WantCaptureMouse,
+	//		ImGui::GetIO().WantCaptureKeyboard,
+	//		ImGui::IsAnyItemActive(),
+	//		ImGui::IsAnyItemFocused()
+	//	);
+	//}
+
+	void ImGuiLayer::OnUpdate(TimeStep timeStep) {
+		End();
 	}
 
 	void ImGuiLayer::OnEvent(Event& event) {
 		ImGuiIO& io = ImGui::GetIO();
 
 		if (event.IsInCategory(EventCategoryMouse)) {
-			event.Handled |= io.WantCaptureMouse;
+			event.Handled |= io.WantCaptureMouse && Input::IsMouseCaptured();
 		}
 		if (event.IsInCategory(EventCategoryKeyboard)) {
 			event.Handled |= io.WantCaptureKeyboard;
 		}
 
+	}
+
+	void ImGuiLayer::Begin() {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+	}
+
+	void ImGuiLayer::End() {
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		Input::SetKeyboardCapture(ImGui::IsAnyItemActive());
+
+		HL_CORE_INFO(
+			"WantMouse: {} | WantKeyboard: {} | KeyboardCaptured: {}",
+			ImGui::GetIO().WantCaptureMouse,
+			ImGui::GetIO().WantCaptureKeyboard,
+			ImGui::IsAnyItemActive()
+		);
 	}
 }

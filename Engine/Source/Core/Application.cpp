@@ -77,6 +77,9 @@ namespace Helios {
 			}*/
 			//HL_CORE_INFO("X and Y offsets {}, {}", Input::GetMouseX(), Input::GetMouseY());
 			Renderer::BeginFrame();
+
+			m_ImGuiLayer->Begin();
+
 			for (auto& layer : m_LayerStack) {
 				layer->OnUpdate(timeStep);
 			}

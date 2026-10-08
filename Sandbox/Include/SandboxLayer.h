@@ -4,7 +4,7 @@
 
 class SandboxLayer : public Helios::Layer {
 public:
-	explicit SandboxLayer(float aspectRatio, Helios::uint32 width, Helios::uint32 height);
+	explicit SandboxLayer(float aspectRatio, const std::shared_ptr<Helios::SceneRenderer>& sceneRenderer);
 	~SandboxLayer();
 
 

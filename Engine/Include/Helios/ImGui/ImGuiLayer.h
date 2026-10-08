@@ -13,6 +13,9 @@ namespace Helios {
 		void OnUpdate(TimeStep timestep) override;
 		void OnEvent(Event& event) override;
 
+		void Begin();
+		void End();
+
 	private:
 		void* m_NativeWindow = nullptr;
 	};

@@ -1,7 +1,7 @@
 #include<SandboxLayer.h>
 
 
-SandboxLayer::SandboxLayer(float aspectRatio, Helios::uint32 width, Helios::uint32 height)
+SandboxLayer::SandboxLayer(float aspectRatio,const std::shared_ptr<Helios::SceneRenderer>& sceneRenderer)
     : Helios::Layer("Sandbox"), 
       m_CameraController(
           45.0f,        // FOV
@@ -9,7 +9,7 @@ SandboxLayer::SandboxLayer(float aspectRatio, Helios::uint32 width, Helios::uint
           0.1f,         // Near Clip
           1000.0f       // Far Clip
       ),
-      m_SceneRenderer(std::make_shared<Helios::SceneRenderer>(width, height))
+      m_SceneRenderer(sceneRenderer)
 {
 
     /*This is not three points on your monitor.

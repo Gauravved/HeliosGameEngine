@@ -38,6 +38,10 @@ namespace Helios {
 			s_MouseCapture = captured;
 		}
 
+		static bool IsMouseCaptured() { return s_MouseCapture; }
+
+		static bool IsKeyboardCapture() { return s_KeyboardCapture; }
+
 	protected:
 		virtual bool IsKeyPressedImpl(KeyCode keyCode) const = 0;
 		virtual bool IsMouseButtonPressedImpl(MouseButton button) const = 0;
