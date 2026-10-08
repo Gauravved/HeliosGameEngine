@@ -90,13 +90,13 @@ namespace Helios {
 		glTexParameteri(
 			GL_TEXTURE_2D,				// Texture target
 			GL_TEXTURE_WRAP_S,			// Wrapping behavior along the horizaontal axis
-			GL_LINEAR					// Linearly interpolate neighbouring pixels
+			GL_CLAMP_TO_EDGE			// Clamping logic
 		);
 
 		glTexParameteri(
 			GL_TEXTURE_2D,				// Texture target
 			GL_TEXTURE_WRAP_T,			// Wrapping behavior along the vertical axis
-			GL_LINEAR					// Linearly interpolate neighbouring pixels
+			GL_CLAMP_TO_EDGE			// Clamp logic
 		);
 
 

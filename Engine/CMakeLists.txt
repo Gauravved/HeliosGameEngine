@@ -22,6 +22,9 @@ target_sources(Helios
         Source/Renderer/Buffer/VertexArray.cpp
 
         Source/Renderer/FrameBuffer/FrameBuffer.cpp
+        Source/Renderer/OpenGL/OpenGLFrameBuffer.cpp 
+        
+        Source/Renderer/SceneRenderer/SceneRenderer.cpp 
 
         Source/Renderer/Camera/OrthographicCamera.cpp
         Source/Renderer/Camera/OrthographicCameraController.cpp
@@ -42,6 +45,9 @@ target_sources(Helios
         # GUI Layer
         Source/ImGui/ImGuiLayer.cpp
 
+        #EditorLayer
+        Source/Editor/EditorLayer.cpp
+
         ../ThirdParty/glad/src/gl.c 
         ../ThirdParty/glad/src/wgl.c 
 
@@ -54,8 +60,8 @@ target_sources(Helios
 
         # ImGui platform/rendering backends
         ../ThirdParty/imgui/backends/imgui_impl_win32.cpp
-        ../ThirdParty/imgui/backends/imgui_impl_opengl3.cpp
- "Source/Renderer/OpenGL/OpenGLFrameBuffer.cpp")
+        ../ThirdParty/imgui/backends/imgui_impl_opengl3.cpp 
+)
 
 target_include_directories(Helios
     PUBLIC
